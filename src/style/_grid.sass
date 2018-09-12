@@ -1,0 +1,28 @@
+.flex-wrapper
+  display: flex
+  .col-12
+    flex: 12
+  .col-8
+    flex: 8
+  .col-6
+    flex: 6
+  .col-4
+    flex: 4
+  .col-3
+    flex: 3
+  .col-2
+    flex: 2
+  .col-1
+    flex: 1
+
+@mixin align-center()
+  display: flex
+  justify-content: center
+  align-items: center
+
+@mixin align-vertical-center()
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+

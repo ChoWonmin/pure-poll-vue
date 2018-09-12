@@ -1,0 +1,36 @@
+{
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "source": {
+    "include": [
+      "./src",
+      "README.md"
+    ],
+    "includePattern": ".(js|vue)$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": [
+    "plugins/markdown",
+    "plugins/summarize",
+    "node_modules/jsdoc-vue"
+  ],
+  "recurseDepth": 10,
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true
+  },
+  "opts": {
+    "template": "node_modules/minami/",
+    "encoding": "utf8",
+    "destination": "./dist/docs",
+    "recurse": true,
+    "verbose": true
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": true,
+    "useLongnameInNav": false,
+    "showInheritedInNav": true
+  }
+}

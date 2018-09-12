@@ -1,0 +1,69 @@
+{
+  "debug": 5,
+  "jsdoc": {
+    "encoding": "utf8",
+    "recurse": false,
+    "pedantic": false,
+    "access": null,
+    "package": null,
+    "module": true,
+    "undocumented": false,
+    "undescribed": false,
+    "ignored": false,
+    "hierarchy": true,
+    "sort": "alphabetic",
+    "relativePath": null,
+    "filter": null,
+    "allowUnknownTags": true,
+    "plugins": [
+      "node_modules/jsdoc-vue"
+    ]
+  },
+  "markdown": {
+    "gfm": true,
+    "tables": true,
+    "breaks": false,
+    "pedantic": false,
+    "sanitize": false,
+    "smartLists": true,
+    "smartypants": false,
+    "xhtml": false,
+    "tasks": true,
+    "emoji": true
+  },
+  "app": {
+    "title": "Document",
+    "meta": null,
+    "base": "/",
+    "entrance": "content:home",
+    "routing": "query",
+    "server": "github"
+  },
+  "template": {
+    "path": "zebra",
+    "options": {
+      "title": {
+        "label": "My Docs",
+        "href": "/docs/?"
+      },
+      "navbar": {
+        "navbar": {
+          "enabled": true,
+          "dark": false,
+          "animations": true
+        }
+      },
+      "sidebar": {
+        "enabled": true,
+        "outline": "tree"
+      }
+    }
+  },
+  "src": [
+    "./src/components/lib/*.js",
+    "./src/javascripts/libs/*.js",
+    "./src/javascripts/helper/*.js"
+  ],
+  "dest": "./dist/docma",
+  "clean": true
+}
