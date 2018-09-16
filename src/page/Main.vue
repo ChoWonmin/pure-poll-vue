@@ -4,11 +4,12 @@
 
 <script>
 export default {
-  data() {},
+  data() {
+    return {};
+  },
   methods: {}
 };
 </script>
 
 <style scoped lang="sass">
-
 </style>
