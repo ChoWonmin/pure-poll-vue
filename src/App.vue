@@ -15,7 +15,11 @@ export default {
   components: {
     Header
   },
-  methods: {}
+  methods: {},
+  mounted() {
+    console.log('hi hello');
+    document.body.className = 'home';
+  }
 };
 </script>
 
@@ -25,9 +29,9 @@ export default {
   @import "./style/variable"
   @import "./style/font"
 
-  body
+  body.home
     margin: 0
-    background-color: #ccc
+    background-color: #a5d6a7
   *
     box-sizing: border-box
 

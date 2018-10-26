@@ -64,14 +64,16 @@ export default {
   @import "../style/variable"
   @import "../style/global"
   .header
-    width: 100%
+    width: 100vw
     height: $header-height
     padding: 33px 0 33px 39px
     position: fixed
     top: 0
+    left: 0
     overflow: hidden
     background-color: #ffffff
     z-index: 1
+    @include card-box-shadow
     .content
       .logo
         width: 180px
