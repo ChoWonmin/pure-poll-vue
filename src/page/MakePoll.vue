@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { dataModule } from '../api/firebase.wrapper';
+import { dataModule, storageModule } from '../api/firebase.wrapper';
 
 export default {
   data() {

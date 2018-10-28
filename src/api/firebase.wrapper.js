@@ -24,6 +24,13 @@ const dataModule = {
   getUniqueKey: path => resources.database.ref(path).push().key
 };
 
+const storageModule = {
+  getReference: path => resources.storage.ref(path),
+  upload: (path, file) => {
+    resources.storage.ref(path).put(file);
+  }
+};
+
 const authModule = resources.auth;
 
-export { dataModule, authModule };
+export { dataModule, authModule, storageModule };

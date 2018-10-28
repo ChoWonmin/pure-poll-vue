@@ -39,6 +39,7 @@ module.exports = {
         'state', // for vuex state
         'acc', // for reduce accumulators
         'e', // for e.returnvalue
+        'path', // firebase module parameter
       ]
     }],
     // allow optionalDependencies
