@@ -1,11 +1,11 @@
 <template lang="jade">
   .header
     .content.flex-wrapper
-      .logo.eng PurePoll
+      router-link(tag="div" to="/").logo.eng(v) PurePoll
       .nav-bar.flex-wrapper
         b.nav-btn 회사소개
         b.nav-btn 여론조사
-        b.nav-btn 여론조사
+        router-link(tag="b" to="/makePoll").nav-btn 여론작성
       .col-12
       .btn-wrapper.flex-wrapper
         b.login-nav(v-on:click="show") 로그인

@@ -9,13 +9,15 @@
         i.material-icons add_comment
       .tool-btn(name='미리보기')
         i.material-icons search
+      .tool-btn(name='작성' v-on:click="regPoll")
+        i.material-icons add
     .poll-container
       .poll-header
         .input-area
-          input(placeholder='설문지 이름을 입력하세요').bold
+          input(placeholder='설문지 이름을 입력하세요' v-model="poll.name").bold
         .input-area
-          textarea(placeholder='설문지 설명')
-      .poll-body(v-for="(item, i) in items")
+          textarea(placeholder='설문지 설명' v-model="poll.intro")
+      .poll-body(v-for="(item, i) in poll.items")
         .item(v-on:click="clickItem(i)" v-bind:class="{active: activeIndex===i}")
           i.material-icons.remove-btn(v-on:click.stop="" v-on:click="removeItem(i)") clear
           .line.flex-wrapper
@@ -35,33 +37,43 @@
 </template>
 
 <script>
+import { dataModule } from '../api/firebase.wrapper';
+
 export default {
   data() {
     return {
-      items: [
-        {
-          question: '',
-          isActive: true,
-          choices: ['보기']
-        }
-      ],
+      poll: {
+        name: undefined,
+        intro: undefined,
+        items: [
+          {
+            question: undefined,
+            isActive: true,
+            choices: ['보기']
+          }
+        ]
+      },
       activeIndex: 0
     };
   },
   methods: {
     addItem() {
-      this.items.push({
+      this.poll.items.push({
         isActive: true,
         choices: ['보기']
       });
-      this.activeIndex = this.items.length - 1;
+      this.activeIndex = this.poll.items.length - 1;
+    },
+    regPoll() {
+      dataModule.push('pollList', this.poll);
+      this.$router.push('/');
     },
     clickItem(i) {
       this.activeIndex = i;
     },
     removeItem(i) {
-      if (this.items.length > 1) {
-        this.items.splice(i, 1);
+      if (this.poll.items.length > 1) {
+        this.poll.items.splice(i, 1);
         this.activeIndex = -1;
       }
     },
