@@ -1,4 +1,9 @@
+# mac os
 .DS_Store
+
+# api key file
+src/config/*
+
 node_modules/
 /dist/
 npm-debug.log*
