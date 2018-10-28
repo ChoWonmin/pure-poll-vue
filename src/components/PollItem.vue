@@ -8,7 +8,7 @@
     .line.bottom
       .col-8
         .radio-area
-          .question-area.flex-wrapper
+          .choice-area.flex-wrapper
             .box
             input(placeholder='보기').bold
           .question-area.flex-wrapper
@@ -52,7 +52,7 @@ export default {
       &.bottom
         padding-bottom: 12px
 
-    .question-area
+    .choice-area, .question-area
       display: flex
       padding: 12px
       border-bottom: solid 2px #aaaaaa

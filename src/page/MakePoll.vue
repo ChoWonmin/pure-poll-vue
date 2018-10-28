@@ -15,31 +15,63 @@
           input(placeholder='설문지 이름을 입력하세요').bold
         .input-area
           textarea(placeholder='설문지 설명')
-      .poll-body(v-for="item in items")
-        PollItem(:option="item", v-on:clickItem="clickItem")
+      .poll-body(v-for="(item, i) in items")
+        .item(v-on:click="clickItem(i)" v-bind:class="{active: activeIndex===i}")
+          i.material-icons.remove-btn(v-on:click.stop="" v-on:click="removeItem(i)") clear
+          .line.flex-wrapper
+            .col-8.flex-wrapper
+              .question-area
+                input(placeholder='질문' v-model="item.question").bold
+            .col-4
+              i.material-icons(v-on:click.stop="" v-on:click="addChoice(item)") add
+          .line.bottom(v-for="(choice,j) in item.choices")
+            .col-8
+              .radio-area
+                .choice-area.flex-wrapper
+                  .box
+                  input(v-bind:placeholder="choice").bold
+            .col-4
+              i.material-icons(v-on:click.stop="" v-on:click="removeChoice(item,j)") clear
 </template>
 
 <script>
-import PollItem from '../components/PollItem';
-
 export default {
-  components: {
-    PollItem
-  },
   data() {
-    return {};
-  },
-  computed: {
-    items() {
-      return this.$store.getters.getPollItems;
-    }
+    return {
+      items: [
+        {
+          question: '',
+          isActive: true,
+          choices: ['보기']
+        }
+      ],
+      activeIndex: 0
+    };
   },
   methods: {
     addItem() {
-      this.items.push('radio');
+      this.items.push({
+        isActive: true,
+        choices: ['보기']
+      });
+      this.activeIndex = this.items.length - 1;
     },
-    clickItem() {
-      console.log('hello world');
+    clickItem(i) {
+      this.activeIndex = i;
+    },
+    removeItem(i) {
+      if (this.items.length > 1) {
+        this.items.splice(i, 1);
+        this.activeIndex = -1;
+      }
+    },
+    addChoice(item) {
+      item.choices.push('보기');
+    },
+    removeChoice(item, j) {
+      if (item.choices.length > 1) {
+        item.choices.splice(j, 1);
+      }
     }
   }
 };
@@ -73,13 +105,13 @@ export default {
     position: relative
 
     .tool-bar
-      position: absolute
+      position: fixed
       width: 40px
       background-color: #fff
       border-radius: 3px
       z-index: 1
-      right: 8px
-      top: $top-indent
+      left: calc(50vw + 422px)
+      top: calc(#{$header-height} + #{$top-indent})
       @include card-box-shadow()
       .tool-btn
         @include align-center()
@@ -94,5 +126,37 @@ export default {
       top: $top-indent
       @include card-box-shadow()
       .poll-body
-        //padding: 12px 0
+        .item
+          border-bottom: solid 1px #ccc
+          position: relative
+          .remove-btn
+            position: absolute
+            top: 12px
+            right: 24px
+          &.active
+            border-left: solid 3px $main-color
+          .line
+            padding: 12px 12px
+            display: flex
+            &.bottom
+              padding-bottom: 12px
+
+          .choice-area, .question-area
+            display: flex
+            padding: 12px
+            border-bottom: solid 2px #aaaaaa
+            width: 480px
+            input[type='radio']
+              width: 30px
+            input
+              @include line-input(100%, 32px)
+              font-size: 24px
+            textarea
+              @include line-input(100%, 60px)
+            .box
+              width: 18px
+              height: 18px
+              border-radius: 100%
+              border: 1px solid #ccc
+
   </style>
