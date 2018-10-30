@@ -1,19 +1,5 @@
 <template lang="jade">
   .item(v-on:click="onClick" v-bind:class="{active: isActive}")
-    .line.flex-wrapper
-      .col-8.flex-wrapper
-        .question-area
-          input(placeholder='질문').bold
-      .col-4
-    .line.bottom
-      .col-8
-        .radio-area
-          .choice-area.flex-wrapper
-            .box
-            input(placeholder='보기').bold
-          .question-area.flex-wrapper
-            .box
-            input(placeholder='보기').bold
 </template>
 
 <script>

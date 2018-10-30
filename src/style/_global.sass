@@ -1,4 +1,22 @@
+*
+  box-sizing: border-box
+
+textarea
+  font-size: 14px
+  font-weight: normal
+
+.icon-outline
+  webkit-filter: contrast(4) invert(1)
+  -moz-filter: contrast(4) invert(1)
+  -o-filter: contrast(4) invert(1)
+  filter: contrast(4) invert(1)
+
 @mixin shadow($opa)
+  -webkit-box-shadow: 0 1px 8px 0 rgba(0,0,0,$opa), 0 3px 4px 0 rgba(0,0,0,$opa), 0 3px 3px -2px rgba(0,0,0,$opa)
+  -moz-box-shadow: 0 1px 8px 0 rgba(0,0,0,$opa), 0 3px 4px 0 rgba(0,0,0,$opa), 0 3px 3px -2px rgba(0,0,0,$opa)
+  box-shadow: 0 1px 8px 0 rgba(0,0,0,$opa), 0 3px 4px 0 rgba(0,0,0,$opa), 0 3px 3px -2px rgba(0,0,0,$opa)
+
+@mixin top-shadow($opa)
   -webkit-box-shadow: 0 1px 8px 0 rgba(0,0,0,$opa), 0 3px 4px 0 rgba(0,0,0,$opa), 0 3px 3px -2px rgba(0,0,0,$opa)
   -moz-box-shadow: 0 1px 8px 0 rgba(0,0,0,$opa), 0 3px 4px 0 rgba(0,0,0,$opa), 0 3px 3px -2px rgba(0,0,0,$opa)
   box-shadow: 0 1px 8px 0 rgba(0,0,0,$opa), 0 3px 4px 0 rgba(0,0,0,$opa), 0 3px 3px -2px rgba(0,0,0,$opa)

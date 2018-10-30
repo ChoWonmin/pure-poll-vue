@@ -38,13 +38,7 @@ export default {
   .container
     max-width: 1140px
     margin: $header-height auto 0 auto
-    background-color: #fff
-
-  .center-wrapper
-    @include align-center()
-
-  .center-wrapper-vertical
-    @include align-vertical-center
+    background-color: #ff6f74
 
   .test
     border: solid 1px black

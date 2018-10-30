@@ -4,9 +4,8 @@
       .tool-btn(name='질문추가' v-on:click="addItem")
         i.material-icons playlist_add
       .tool-btn(name='사진추가')
+        input(type='file' v-on:change="detectFiles($event.target.files)")
         i.material-icons add_a_photo
-      .tool-btn(name='제목추가')
-        i.material-icons add_comment
       .tool-btn(name='미리보기')
         i.material-icons search
       .tool-btn(name='작성' v-on:click="regPoll")
@@ -17,34 +16,45 @@
           input(placeholder='설문지 이름을 입력하세요' v-model="poll.name").bold
         .input-area
           textarea(placeholder='설문지 설명' v-model="poll.intro")
-      .poll-body(v-for="(item, i) in poll.items")
+      .poll-body(v-for="(item, i) in poll.items" v-bind:class="{active: activeIndex===i}")
         .item(v-on:click="clickItem(i)" v-bind:class="{active: activeIndex===i}")
           i.material-icons.remove-btn(v-on:click.stop="" v-on:click="removeItem(i)") clear
           .line.flex-wrapper
-            .col-8.flex-wrapper
+            .cell-8.flex-wrapper
               .question-area
                 input(placeholder='질문' v-model="item.question").bold
-            .col-4
-              i.material-icons(v-on:click.stop="" v-on:click="addChoice(item)") add
           .line.bottom(v-for="(choice,j) in item.choices")
-            .col-8
+            .cell-8
               .radio-area
                 .choice-area.flex-wrapper
                   .box
                   input(v-bind:placeholder="choice").bold
-            .col-4
+            .cell-4
               i.material-icons(v-on:click.stop="" v-on:click="removeChoice(item,j)") clear
+          .line.bottom
+            .cell-8
+              .radio-area
+                .choice-area.flex-wrapper
+                  .box
+                  .addChoice(v-on:click.stop="" v-on:click="addChoice(item)") 보기 추가
+        .footer.flex-wrapper
+          .empty
+          .util-wrapper
+      .poll-body(v-for="(item, i) in poll.items")
 </template>
 
 <script>
+import uuidv3 from 'uuid/v3';
 import { dataModule, storageModule } from '../api/firebase.wrapper';
 
 export default {
   data() {
     return {
+      mainImage: undefined,
       poll: {
         name: undefined,
         intro: undefined,
+        mainImage: uuidv3('purepoll.io', uuidv3.DNS),
         items: [
           {
             question: undefined,
@@ -64,9 +74,22 @@ export default {
       });
       this.activeIndex = this.poll.items.length - 1;
     },
+    detectFiles(files) {
+      Array.from(Array(files.length).keys()).forEach((e) => {
+        this.mainImage = files[e];
+      });
+    },
+    async uploadMainImage(file) {
+      await storageModule.upload('poll/ho.jpg', file); // new Blob([file], { type: file.type })
+    },
     regPoll() {
-      dataModule.push('pollList', this.poll);
-      this.$router.push('/');
+      if (!this.mainImage) {
+        console.log('메인 이미지를 등록해주세요');
+      } else {
+        this.uploadMainImage(this.mainImage);
+        dataModule.push('pollList', this.poll);
+        this.$router.push('/');
+      }
     },
     clickItem(i) {
       this.activeIndex = i;
@@ -105,11 +128,11 @@ export default {
 
   .input-area
     padding: 12px
-    @include shadow(.12)
     input
-      @include line-input(calc(100% - 12px), 48px)
+      @include line-input(calc(100% - 12px), 56px)
       @include bold
       font-size: 32px
+      @include bottom-shadow(.12)
     textarea
       @include line-input(calc(100% - 12px), 60px)
 
@@ -129,8 +152,17 @@ export default {
         @include align-center()
         @include hover-name-action($sub-color)
         height: 40px
-        color: $black-color
+        color: $grey-color
         @include tooltip(attr(name),72px)
+        position: relative
+        input[type='file']
+          position: absolute
+          top: 0
+          left: 0
+          width: 40px
+          height: 40px
+          font-size: 40px
+          opacity: 0
 
     .poll-container
       position: absolute
@@ -139,36 +171,43 @@ export default {
       @include card-box-shadow()
       .poll-body
         .item
-          border-bottom: solid 1px #ccc
+          @include bottom-shadow(.5)
           position: relative
+          &.active
+            border-left: solid 3px $main-color
           .remove-btn
             position: absolute
             top: 12px
             right: 24px
-          &.active
-            border-left: solid 3px $main-color
           .line
-            padding: 12px 12px
+            padding: 5px 12px
             display: flex
             &.bottom
               padding-bottom: 12px
 
           .choice-area, .question-area
             display: flex
-            padding: 12px
-            border-bottom: solid 2px #aaaaaa
+            padding: 6px 12px
             width: 480px
-            input[type='radio']
-              width: 30px
             input
               @include line-input(100%, 32px)
               font-size: 24px
-            textarea
-              @include line-input(100%, 60px)
             .box
-              width: 18px
-              height: 18px
+              margin-top: 6px
+              width: 20px
+              height: 20px
               border-radius: 100%
-              border: 1px solid #ccc
+              border: 2px solid $grey-color
+            .addChoice
+              font-size: 24px
+              color: $grey-color
+              text-indent: 12px
+              &:hover
+                color: red
+          .question-area
+            @include bottom-shadow(.5)
+        .footer
+          height: 80px
+          .util-wrapper
 
   </style>

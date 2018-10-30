@@ -26,9 +26,8 @@ const dataModule = {
 
 const storageModule = {
   getReference: path => resources.storage.ref(path),
-  upload: (path, file) => {
-    resources.storage.ref(path).put(file);
-  }
+  upload: async (path, file) => resources.storage.ref(path).put(file),
+  dowonload: async path => resources.storage.ref(path).getDownloadURL(),
 };
 
 const authModule = resources.auth;

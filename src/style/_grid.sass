@@ -1,19 +1,24 @@
-.flex-wrapper
+.grid, .flex-wrapper
   display: flex
-  .col-12
+  .cell-12
+    width: 100%
+  .cell-8
+    width: calc(100%*2/3)
+  .cell-6
+    width: calc(100%/2)
+  .cell-4
+    width: calc(100%/3)
+  .cell-3
+    width: calc(100%/4)
+  .cell-2
+    width: calc(100%/6)
+  .cell-1
+    width: calc(100%/12)
+  .empty
     flex: 12
-  .col-8
-    flex: 8
-  .col-6
-    flex: 6
-  .col-4
-    flex: 4
-  .col-3
-    flex: 3
-  .col-2
-    flex: 2
-  .col-1
-    flex: 1
+
+.grid
+  flex-wrap: wrap
 
 @mixin align-center()
   display: flex
