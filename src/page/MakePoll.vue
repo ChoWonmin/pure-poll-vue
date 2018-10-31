@@ -37,9 +37,9 @@
                 .choice-area.flex-wrapper
                   .box
                   .addChoice(v-on:click.stop="" v-on:click="addChoice(item)") 보기 추가
-        .footer.flex-wrapper
-          .empty
-          .util-wrapper
+          .footer.flex-wrapper
+            .empty
+            .util-wrapper
       .poll-body(v-for="(item, i) in poll.items")
 </template>
 
@@ -82,11 +82,12 @@ export default {
     async uploadMainImage(file) {
       await storageModule.upload('poll/ho.jpg', file); // new Blob([file], { type: file.type })
     },
-    regPoll() {
+    async regPoll() {
       if (!this.mainImage) {
         console.log('메인 이미지를 등록해주세요');
       } else {
-        this.uploadMainImage(this.mainImage);
+        await storageModule.upload(`pollList/${this.poll.mainImage}`, this.mainImage);
+        console.log(this.mainImage);
         dataModule.push('pollList', this.poll);
         this.$router.push('/');
       }
@@ -206,8 +207,9 @@ export default {
                 color: red
           .question-area
             @include bottom-shadow(.5)
-        .footer
-          height: 80px
-          .util-wrapper
+          .footer
+            @include top-shadow(.5)
+            height: 80px
+            .util-wrapper
 
   </style>
