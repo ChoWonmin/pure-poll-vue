@@ -11,11 +11,12 @@
       :optionIcons="[{text:'기관명', icon:'keyboard'},{text:'여론조사', icon:'phone'}]")
     .container
       .items-wrapper.grid
-        .item-wrapper(v-for="item in list").cell-2
+        .item-wrapper(v-for="item in pollList").cell-2
           .item
-            .image-wrap.test
+            .image-wrap
+              img(v-bind:src="item.mainImage").mainImage
             .content-wrap
-              .name 2018년 대선 정책 여론조사
+              .name {{item.name}}
               .org-name 한국 갤럽
               .line
               .category 경제
@@ -30,7 +31,7 @@
 
 <script>
 import { dataModule, storageModule } from '../api/firebase.wrapper';
-import DropDown from '../components/DropDown.';
+import DropDown from '../components/DropDown';
 
 export default {
   components: {
@@ -38,17 +39,17 @@ export default {
   },
   data() {
     return {
-      pollList: undefined,
-      list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+      pollList: undefined
     };
   },
   async mounted() {
     this.pollList = (await dataModule.get('pollList')).val();
+    for (const k in this.pollList) {
+      this.pollList[k].mainImage = await storageModule.dowonloadUrl(`pollList/${this.pollList[k].mainImage}`);
+    }
   },
   methods: {
-    async upload(file) {
-      let uid = (await storageModule.upload('poll/wonmin.jpg', file)).metadata.md5Hash; // new Blob([file], { type: file.type })
-    }
+    getImage: async url => await storageModule.dowonloadUrl(`pollList/${url}.jpeg`)
   }
 };
 </script>
@@ -91,8 +92,15 @@ export default {
             border-radius: 3px
             @include card-box-shadow
             .image-wrap
+              width: 100%
               height: 50%
-              background-color: #00acc1
+              overflow: hidden
+              @include bottom-shadow(.12)
+              display: flex
+              align-items: center
+              .mainImage
+                width: 100%
+                height: auto
             .content-wrap
               height: 50%
               padding: 10px 10px 0 10px

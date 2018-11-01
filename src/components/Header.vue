@@ -15,31 +15,31 @@
       .info-container.center-wrapper
         .info
           .title.eng PurePoll
-          .sub-title 안전한 여론조사
+          .sub-title 안전한 여론조사.
+          .underline
           .description 신 개념 블록체인 여론조사 서비스
           .sub-info
             .line 언제어디서나.
             .line 당신의 의견을
             .line 정확하게
-      .login-form.center-wrapper
-        .center
-          .title 아이디와 비밀번호를 입력해주세요
-          .line
-            .inputWithIcon
-              input#id-input(placeholder='ID', type='text')
-              i.material-icons mail
-            .inputWithIcon
-              input#password-input(placeholder='password', type='password')
-              i.material-icons vpn_key
-          .line
+        .login-form.center-wrapper
+          .center
+            .title 아이디와 비밀번호를 입력해주세요
+            .btn-wrapper
+              Input(:icon="'mail'", :placeholder="'E-MAIL'")
+            .btn-wrapper
+              Input(:icon="'vpn_key'", :placeholder="'PASSWORD'", :option="'password'")
             .result 로그인 하세요
-          .line
-            .btn#login-btn 로그인
+            .loginbtn
+              Button(:name="'로그인하기'", :option="'transparent'")
+            .registerbtn 아직 계정이 없으신가요?
 </template>
 
 <script>
 import VModal from 'vue-js-modal';
 import Vue from 'vue';
+import Button from '../components/Button';
+import Input from '../components/Input';
 
 Vue.use(VModal);
 
@@ -47,7 +47,7 @@ export default {
   data() {
     return {};
   },
-  components: { VModal },
+  components: { VModal, Button, Input },
   methods: {
     show() {
       this.$modal.show('login-modal');
@@ -104,31 +104,54 @@ export default {
           border-bottom-left-radius: 10px
           @include shadow(0.24)
   .info-container
-    width: 50%
+    display: flex
+    height: 100%
     background-color: $sub-color
+    text-align: center
+    line-height: 36px
     .info
+      width : 50%
       color: #ffffff
       .title
         font-size: 40px
-        font-weight: bold
+        font-weight: 900
+        margin-right: 24%
+        margin-top: 10%
       .sub-title
         font-size: 24px
+        margin-right: 16%
         font-weight: bold
-        border-bottom: solid 1px #ffffff
-        width: 170px
         margin-top: 10px
-        padding-bottom: 4px
+      .underline
+        border-bottom: solid 1px #ffffff
+        width: 60%
+        margin: 6px 0px 0px 14%
       .description
-        margin-top: 8px
+        margin: 8px 14% 0px 0px
       .sub-info
-        margin-top: 12px
         .line
-
+          margin-left: 25%
+          text-align: left
     .login-form
       width: 50%
+      text-align: left
+      background-color: #ffffff
+      padding: 20px
       .center
+        width: calc(100% - 40px)
+        height: calc(100% - 40px)
         .title
-          margin-bottom: 8px
-        .line
-          margin-bottom: 4px
+          color: $grey-color
+        .result
+          color: $error-color
+        .btn-wrapper
+          width: 100%
+        .loginbtn
+          width: 100%
+        .registerbtn
+          height: 32px
+          border-bottom: solid 1px
+          color: $grey-color
+          &:hover
+            color: darken($grey-color,10)
 </style>

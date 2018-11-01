@@ -5,7 +5,7 @@
       .name {{name}}
       .arrow.material-icons {{arrow}}
     .dropdowncontent( v-show="visible" )
-      .child( v-for = "aaa in optionIcons", v-on:click="clickchild", v-model="selected")
+      .child( v-for = "(aaa, i) in optionIcons", v-on:click="clickchild(i)", v-model="selected")
         .child-icon.material-icons {{aaa['icon']}}
         .child-text {{aaa['text']}}
 </template>
@@ -46,11 +46,10 @@ export default {
     onClick() {
       this.visible = !this.visible;
     },
-    clickchild() {
-      // console.log(this.selected());
-      console.log(this.optionIcons.indexOf(this.text));
-      // this.name = this.optionIcons[0].text;
-      // this.icon = this.optionIcons[0].icon;
+    clickchild(i) {
+      // console.log(this.optionIcons[i].text);
+      this.name = this.optionIcons[i].text;
+      this.icon = this.optionIcons[i].icon;
     }
   }
 };
@@ -64,8 +63,6 @@ export default {
     transform: rotate(180deg)
 
   .dropdown-open
-
-
   .dropdown
     position: relative
     height: 36px
@@ -98,8 +95,7 @@ export default {
       top: 40px
       transition: all .3s ease
       @include shadow(.12)
-      //display: flex
-      color: $black-color
+      color: $grey-color
       line-height: 32px
       .child
         display: flex

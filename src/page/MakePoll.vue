@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import uuidv3 from 'uuid/v3';
+import uuidv4 from 'uuid/v4';
 import { dataModule, storageModule } from '../api/firebase.wrapper';
 
 export default {
@@ -54,7 +54,7 @@ export default {
       poll: {
         name: undefined,
         intro: undefined,
-        mainImage: uuidv3('purepoll.io', uuidv3.DNS),
+        mainImage: uuidv4(),
         items: [
           {
             question: undefined,
@@ -79,17 +79,14 @@ export default {
         this.mainImage = files[e];
       });
     },
-    async uploadMainImage(file) {
-      await storageModule.upload('poll/ho.jpg', file); // new Blob([file], { type: file.type })
-    },
     async regPoll() {
       if (!this.mainImage) {
         console.log('메인 이미지를 등록해주세요');
       } else {
         await storageModule.upload(`pollList/${this.poll.mainImage}`, this.mainImage);
-        console.log(this.mainImage);
         dataModule.push('pollList', this.poll);
         this.$router.push('/');
+        console.log(this.mainImage);
       }
     },
     clickItem(i) {
