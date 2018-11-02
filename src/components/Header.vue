@@ -8,8 +8,9 @@
         router-link(tag="b" to="/makePoll").nav-btn 여론작성
       .empty
       .btn-wrapper.flex-wrapper
-        b.login-nav(v-on:click="show") 로그인
-        b.logout-nav 로그아웃
+        b.login-nav(v-on:click="show", v-show="!user") 로그인
+        b.id-nav(v-show="user") {{email}}님
+        b.logout-nav(v-show="user", v-on:click="clickLogout()") 로그아웃
         b.register-nav 회원가입
     modal(name="login-modal")
       .info-container.center-wrapper
@@ -26,12 +27,12 @@
           .center
             .title 아이디와 비밀번호를 입력해주세요
             .btn-wrapper
-              Input(:icon="'mail'", :placeholder="'E-MAIL'")
+              Input#a(:icon="'mail'", :placeholder="'E-MAIL'", ref="id")
             .btn-wrapper
-              Input(:icon="'vpn_key'", :placeholder="'PASSWORD'", :option="'password'")
+              Input#b(:icon="'vpn_key'", :placeholder="'PASSWORD'", :option="'password'", ref="pw")
             .result 로그인 하세요
             .loginbtn
-              Button(:name="'로그인하기'", :option="'transparent'")
+              Button(:name="'로그인하기'", :option="'transparent'", v-on:click="clickLogin()")
             .registerbtn 아직 계정이 없으신가요?
 </template>
 
@@ -40,12 +41,16 @@ import VModal from 'vue-js-modal';
 import Vue from 'vue';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import { authModule } from '../api/firebase.wrapper';
 
 Vue.use(VModal);
 
 export default {
   data() {
-    return {};
+    return {
+      user: undefined,
+      email: undefined
+    };
   },
   components: { VModal, Button, Input },
   methods: {
@@ -54,6 +59,24 @@ export default {
     },
     hide() {
       this.$modal.hide('login-modal');
+    },
+    clickLogin() {
+      const id = this.$refs.id.res;
+      const password = this.$refs.pw.res;
+      console.log(this.user);
+
+      authModule.signInWithEmailAndPassword(id, password).then(() => {
+        this.user = authModule.currentUser;
+        this.email = this.user.email;
+        this.hide();
+      }).catch((err) => {
+        console.log(err);
+      });
+
+      console.log(this.user);
+    },
+    clickLogout() {
+      this.user = undefined;
     }
   }
 };
@@ -87,6 +110,12 @@ export default {
           line-height: 60px
           font-size: 16px
       .btn-wrapper
+        .id-nav
+          width: 190px
+          color: $main-color
+          font-size: 16px
+          height: 43px
+          line-height: 43px
         .login-nav, .logout-nav
           width: 90px
           color: $main-color

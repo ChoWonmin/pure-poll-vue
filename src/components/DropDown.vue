@@ -47,9 +47,10 @@ export default {
       this.visible = !this.visible;
     },
     clickchild(i) {
-      // console.log(this.optionIcons[i].text);
+      console.log(this.name);
       this.name = this.optionIcons[i].text;
       this.icon = this.optionIcons[i].icon;
+      console.log(this.name);
     }
   }
 };
