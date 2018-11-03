@@ -2,7 +2,7 @@
   .inputWithIcon( v-on:click="onClick")
     .icon( v-show="!icon==''" )
       .material-icons {{icon}}
-    input(v-bind:placeholder = "placeholder", v-bind:type = "option", v-model="res").input
+    input(v-bind:placeholder = "placeholder", v-bind:type = "option", v-model="value").input
 </template>
 <script>
 export default {
@@ -23,8 +23,8 @@ export default {
   },
   data() {
     return {
-      res: ''
-    }
+      value: ''
+    };
   },
   methods: {
     onClick() {

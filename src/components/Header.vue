@@ -29,7 +29,7 @@
             .btn-wrapper
               Input#a(:icon="'mail'", :placeholder="'E-MAIL'", ref="id")
             .btn-wrapper
-              Input#b(:icon="'vpn_key'", :placeholder="'PASSWORD'", :option="'password'", ref="pw")
+              Input#b(:icon="'vpn_key'", :placeholder="'PASSWORD'", :option="'password'", ref="password")
             .result 로그인 하세요
             .loginbtn
               Button(:name="'로그인하기'", :option="'transparent'", v-on:click="clickLogin()")
@@ -61,9 +61,9 @@ export default {
       this.$modal.hide('login-modal');
     },
     clickLogin() {
-      const id = this.$refs.id.res;
-      const password = this.$refs.pw.res;
-      console.log(this.user);
+      const id = this.$refs.id.value;
+      const password = this.$refs.password.value;
+      console.log(id, password);
 
       authModule.signInWithEmailAndPassword(id, password).then(() => {
         this.user = authModule.currentUser;
@@ -72,8 +72,6 @@ export default {
       }).catch((err) => {
         console.log(err);
       });
-
-      console.log(this.user);
     },
     clickLogout() {
       this.user = undefined;

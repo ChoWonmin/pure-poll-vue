@@ -47,10 +47,18 @@ export default {
       this.visible = !this.visible;
     },
     clickchild(i) {
-      console.log(this.name);
       this.name = this.optionIcons[i].text;
       this.icon = this.optionIcons[i].icon;
-      console.log(this.name);
+      this.changeName(i);
+      this.changeIcon(i);
+    }
+  },
+  watch: {
+    name() {
+      return this.optionIcons[i].text;
+    },
+    changeIcon(i) {
+      return this.optionIcons[i].icon;
     }
   }
 };

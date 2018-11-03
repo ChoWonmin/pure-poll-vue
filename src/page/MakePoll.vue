@@ -16,7 +16,7 @@
           input(placeholder='설문지 이름을 입력하세요' v-model="poll.name").bold
         .input-area
           textarea(placeholder='설문지 설명' v-model="poll.intro")
-      .poll-body(v-for="(item, i) in poll.items" v-bind:class="{active: activeIndex===i}")
+      .poll-body(v-for="(item, i) in computedPoll.items" v-bind:class="{active: activeIndex===i}")
         .item(v-on:click="clickItem(i)" v-bind:class="{active: activeIndex===i}")
           i.material-icons.remove-btn(v-on:click.stop="" v-on:click="removeItem(i)") clear
           .line.flex-wrapper
@@ -28,15 +28,15 @@
               .radio-area
                 .choice-area.flex-wrapper
                   .box
-                  input(v-bind:placeholder="choice").bold
+                  input(v-bind:placeholder="'보기'" v-model="choice.value").bold
             .cell-4
-              i.material-icons(v-on:click.stop="" v-on:click="removeChoice(item,j)") clear
+              i.material-icons(v-on:click.stop="" v-on:click="removeChoice(i,j)") clear
           .line.bottom
             .cell-8
               .radio-area
                 .choice-area.flex-wrapper
                   .box
-                  .addChoice(v-on:click.stop="" v-on:click="addChoice(item)") 보기 추가
+                  .addChoice(v-on:click.stop="" v-on:click="addChoice(i)") 보기 추가
           .footer.flex-wrapper
             .empty
             .util-wrapper
@@ -59,7 +59,7 @@ export default {
           {
             question: undefined,
             isActive: true,
-            choices: ['보기']
+            choices: [{ value: '' }]
           }
         ]
       },
@@ -70,7 +70,7 @@ export default {
     addItem() {
       this.poll.items.push({
         isActive: true,
-        choices: ['보기']
+        choices: [{ value: '' }]
       });
       this.activeIndex = this.poll.items.length - 1;
     },
@@ -86,7 +86,6 @@ export default {
         await storageModule.upload(`pollList/${this.poll.mainImage}`, this.mainImage);
         dataModule.push('pollList', this.poll);
         this.$router.push('/');
-        console.log(this.mainImage);
       }
     },
     clickItem(i) {
@@ -98,13 +97,20 @@ export default {
         this.activeIndex = -1;
       }
     },
-    addChoice(item) {
-      item.choices.push('보기');
+    addChoice(i) {
+      const item = this.poll.items[i];
+      item.choicesIndex += 1;
+      item.choices.push({ value: '' });
     },
-    removeChoice(item, j) {
-      if (item.choices.length > 1) {
-        item.choices.splice(j, 1);
+    removeChoice(i, j) {
+      if (this.poll.items[i].choices.length > 1) {
+        this.poll.items[i].choices.splice(j, 1);
       }
+    }
+  },
+  computed: {
+    computedPoll() {
+      return this.poll;
     }
   }
 };
