@@ -11,7 +11,8 @@
       :optionIcons="[{text:'기관명', icon:'keyboard'},{text:'여론조사', icon:'phone'}]")
     .container
       .items-wrapper.grid
-        .item-wrapper(v-for="item in pollList").cell-2
+        .load(v-show="!isLoad") loading ...git
+        .item-wrapper(v-for="item in pollList" v-show="isLoad").cell-2
           .item
             .image-wrap
               img(v-bind:src="item.mainImage").mainImage
@@ -39,7 +40,8 @@ export default {
   },
   data() {
     return {
-      pollList: undefined
+      pollList: undefined,
+      isLoad: false
     };
   },
   async mounted() {
@@ -47,6 +49,7 @@ export default {
     for (const k in this.pollList) {
       this.pollList[k].mainImage = await storageModule.dowonloadUrl(`pollList/${this.pollList[k].mainImage}`);
     }
+    this.isLoad = true;
   },
   methods: {
     getImage: async url => await storageModule.dowonloadUrl(`pollList/${url}.jpeg`)
