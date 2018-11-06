@@ -1,26 +1,36 @@
 <template lang="jade">
   .container
-    .poll
+    .load(v-show="!isLoad")
+      Spinner()
+    .poll(v-show="isLoad")
       .header
-        .input-area
-          input(placeholder='설문지 이름을 입력하세요' v-model="poll.name").bold
-        .input-area
-          textarea(placeholder='설문지 설명' v-model="poll.intro")
+        .name {{poll.name}}
+        .info {{poll.info}}
       .body
+        .item(v-for="item in poll.items")
+          .question {{item.question}}
+          .choices(v-for="choice in item.choices")
+            .choice {{choice}}
+
 </template>
 
 <script>
 import { dataModule } from '../api/firebase.wrapper';
+import Spinner from '../components/Spinner';
 
 export default {
+  components: {
+    Spinner
+  },
   data() {
     return {
+      isLoad: false,
       poll: undefined
     };
   },
   async mounted() {
     this.poll = (await dataModule.get('pollList/-LQCY50X8i7-mCl9jS-B')).val();
-    console.log(this.poll);
+    this.isLoad = true;
   },
   methods: {
   }

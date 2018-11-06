@@ -58,7 +58,7 @@ export default {
     transform: translate(-50%, -50%)
     height: 81px
     width: 90px
-    position: absolute
+    position: fixed
     left: 50%
     top: 50%
   .tri
