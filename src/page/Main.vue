@@ -11,7 +11,8 @@
       :optionIcons="[{text:'기관명', icon:'keyboard'},{text:'여론조사', icon:'phone'}]")
     .container
       .items-wrapper.grid
-        .load(v-show="!isLoad") loading ...git
+        .load(v-show="!isLoad")
+          Spinner()
         .item-wrapper(v-for="item in pollList" v-show="isLoad").cell-2
           .item
             .image-wrap
@@ -33,10 +34,12 @@
 <script>
 import { dataModule, storageModule } from '../api/firebase.wrapper';
 import DropDown from '../components/DropDown';
+import Spinner from '../components/Spinner';
 
 export default {
   components: {
-    DropDown
+    DropDown,
+    Spinner
   },
   data() {
     return {
@@ -45,6 +48,10 @@ export default {
     };
   },
   async mounted() {
+    // console.log(await window.web3.currentProvider);
+    // window.web3 = new Web3(await window.web3.currentProvider);
+    // const defaultAccount = await web3.eth.accounts[0];
+    // web3.eth.sendTransaction({from: defaultAccount})
     this.pollList = (await dataModule.get('pollList')).val();
     for (const k in this.pollList) {
       this.pollList[k].mainImage = await storageModule.dowonloadUrl(`pollList/${this.pollList[k].mainImage}`);

@@ -38,7 +38,6 @@ export default {
   .container
     max-width: 1140px
     margin: $header-height auto 0 auto
-    background-color: #ff6f74
 
   .test
     border: solid 1px black

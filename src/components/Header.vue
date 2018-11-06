@@ -4,7 +4,7 @@
       router-link(tag="div" to="/").logo.eng(v) PurePoll
       .nav-bar.flex-wrapper
         b.nav-btn 회사소개
-        b.nav-btn 여론조사
+        router-link(tag="b" to="/responsePoll").nav-btn 여론조사
         router-link(tag="b" to="/makePoll").nav-btn 여론작성
       .empty
       .btn-wrapper.flex-wrapper
@@ -52,6 +52,9 @@ export default {
       email: undefined
     };
   },
+  mounted() {
+    this.user = authModule.currentUser;
+  },
   components: { VModal, Button, Input },
   methods: {
     show() {
@@ -63,7 +66,6 @@ export default {
     clickLogin() {
       const id = this.$refs.id.value;
       const password = this.$refs.password.value;
-      console.log(id, password);
 
       authModule.signInWithEmailAndPassword(id, password).then(() => {
         this.user = authModule.currentUser;
