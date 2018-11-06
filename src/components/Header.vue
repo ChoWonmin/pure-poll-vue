@@ -5,13 +5,14 @@
       .nav-bar.flex-wrapper
         b.nav-btn 회사소개
         router-link(tag="b" to="/responsePoll").nav-btn 여론조사
-        router-link(tag="b" to="/makePoll").nav-btn 여론작성
+        router-link(tag="b" to="/regPoll").nav-btn 여론작성
+        //router-link(tag="b" to="/makePoll").nav-btn 여론작성
       .empty
       .btn-wrapper.flex-wrapper
         b.login-nav(v-on:click="show", v-show="!user") 로그인
         b.id-nav(v-show="user") {{email}}님
         b.logout-nav(v-show="user", v-on:click="clickLogout()") 로그아웃
-        b.register-nav 회원가입
+        router-link(tag="b" to="/register").register-nav 회원가입
     modal(name="login-modal")
       .info-container.center-wrapper
         .info

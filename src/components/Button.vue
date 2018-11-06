@@ -89,6 +89,14 @@ export default {
       width : 24px
       height : 24px
       padding : 0 0
+    &.big
+      height : 36px
+      padding : 0 0
+      line-height: 36px
+    &.large
+      height: 48px
+      padding : 0 0
+      line-height: 48px
     &.circle
       border-radius : 100%
     //.icon
