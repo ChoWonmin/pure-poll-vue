@@ -81,6 +81,7 @@ export default {
       //color : $main-color
       .tooltip
         display: block
+      cursor: pointer
     &:active
       background-color : darken($sub-color, 10)
     &.fixed

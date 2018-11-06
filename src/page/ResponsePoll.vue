@@ -53,20 +53,10 @@ export default {
   @import "../style/global"
   @import "../style/grid"
 
-  $top-indent: 48px
-
-  @mixin line-input($width, $height)
-    width: $width
-    height: $height
-    outline: none
-    padding-left: 12px
-    border: transparent
-
   .container
-    position: relative
     color: $grey-color
     .poll
-      top: $top-indent
+      margin-top: 24px
       width: 100%
       @include card-box-shadow
       .header
