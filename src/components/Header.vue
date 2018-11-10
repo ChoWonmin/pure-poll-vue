@@ -19,7 +19,7 @@
           .title.eng PurePoll
           .sub-title 안전한 여론조사.
           .underline
-          .description 신 개념 블록체인 여론조사 서비스
+          .description 신개념 블록체인 여론조사 서비스
           .sub-info
             .line 언제어디서나.
             .line 당신의 의견을

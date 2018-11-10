@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      value: ''
+      value: undefined
     };
   },
   methods: {

@@ -16,6 +16,7 @@
     "publish": "env NODE_ENV=production && node build/publish.js"
   },
   "dependencies": {
+    "@wormslab/vuetify-calendar": "^1.0.6",
     "chalk": "^2.0.1",
     "compression": "^1.7.3",
     "connect-history-api-fallback": "^1.5.0",
@@ -25,10 +26,12 @@
     "jade": "^1.11.0",
     "lodash": "^4.17.11",
     "node-gyp": "^3.8.0",
+    "stylus": "^0.54.5",
     "uuid": "^3.3.2",
     "vue": "^2.5.16",
     "vue-js-modal": "^1.3.26",
     "vue-router": "^3.0.1",
+    "vue2-datepicker": "^2.6.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

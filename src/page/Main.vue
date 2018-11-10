@@ -3,8 +3,7 @@
     .search-wrap
       input(placeholder="다음으로 PurePoll 검색").search-input
     .sort-bar
-      DropDown(:name="'여론조사'",
-      :optionIcons="[{text:'기관명', icon:'keyboard'},{text:'여론조사', icon:'phone'}]")
+      DropDown(:name="'여론조사'", :optionIcons="[{text:'기관명', icon:'keyboard'},{text:'여론조사', icon:'phone'}]")
       DropDown(:name="'항목 별'",
       :optionIcons="[{text:'정치', icon:'keyboard'},{text:'경제', icon:'phone'},{text:'외교', icon:'phone'}]")
       DropDown(:name="'여론조사'",
