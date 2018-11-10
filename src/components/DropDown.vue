@@ -51,6 +51,7 @@ export default {
       this.name = this.optionIcons[i].text;
       this.icon = this.optionIcons[i].icon;
       this.value = this.optionIcons[i].text;
+      console.log(this);
     }
   },
   watch: {

@@ -6,6 +6,9 @@ import RegPoll from '../page/regPoll';
 import MakePoll from '../page/MakePoll';
 import ResponsePoll from '../page/ResponsePoll';
 import Register from '../page/Register';
+import RegisterOrg from '../page/RegisterOrg';
+import RegisterRes from '../page/RegisterRes';
+
 
 Vue.use(Router);
 
@@ -41,6 +44,16 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/registerOrg',
+      name: 'RegisterOrg',
+      component: RegisterOrg
+    },
+    {
+      path: '/registerRes',
+      name: 'RegisterRes',
+      component: RegisterRes
     }
   ]
 });

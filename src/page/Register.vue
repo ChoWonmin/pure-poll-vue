@@ -2,7 +2,7 @@
   .container
     .left-view.center-wrapper
       .title 어떤 것을 알아 보고 싶으세요?
-    .register-view.right-view.center-wrapper-vertical
+    .right-view.center-wrapper-vertical
       .main-title 회원가입
       .flex-wrapper
         .sub-title 이미 회원이신가요?
@@ -15,7 +15,7 @@
           .sub-title 만 14세 이상 가능
           .btn-nav
             .empty
-            Button.btn(:name="'회원가입'", :option="'big'")
+            Button.btn(:name="'회원가입'", :option="'big'", v-on:click="gotoRes")
             .empty
         .line
         .box-nav.center-wrapper-vertical
@@ -24,7 +24,7 @@
           .sub-title 사업자 등록증을 보유한 기관회원
           .btn-nav
             .empty
-            Button.btn(:name="'회원가입'", :option="'big'")
+            Button.btn(:name="'회원가입'", :option="'big'", v-on:click="gotoOrg")
             .empty
 
     .person-form.right-view.center-wrapper-vertical
@@ -50,6 +50,12 @@ export default {
     },
     hide() {
       this.$modal.hide('login-modal');
+    },
+    gotoOrg() {
+      location.href = '/RegisterOrg';
+    },
+    gotoRes() {
+      location.href = '/RegisterRes';
     }
   }
 };
@@ -82,9 +88,11 @@ $top-indent: 48px
       font-size: 24px
       font-weight: bold
   .right-view
+    align-items: center
+    height: calc(100vh - #{$header-height})
     background-color: #fff
-    border-top-left-radius: 10px
-    border-bottom-left-radius: 10px
+    //border-top-left-radius: 10px
+    //border-bottom-left-radius: 10px
     flex: 6
     box-shadow: inset 0px 2px 6px -1px $black-color
     .main-title
@@ -104,9 +112,10 @@ $top-indent: 48px
       i.blue
         color: $sub-color
     .register-selecter
-      height: 330px
+      height: calc(100vh - #{$header-height} - 64px - 60px)
+      justify-content: center
+      align-items: center
       .box-nav
-        justify-items: center
         flex: 3
         i
           font-size: 100px
@@ -125,6 +134,7 @@ $top-indent: 48px
             box-shadow: 0 2px 6px -1px $black-color
             width: 200px
       .line
+        height: calc(100vh - #{$header-height} - 64px - 60px)
         border: solid .5px #707070
 
 
