@@ -18,7 +18,6 @@
           textarea(placeholder='설문지 설명' v-model="poll.intro")
       .poll-body(v-for="(item, i) in computedPoll.items" v-bind:class="{active: activeIndex===i}")
         .item(v-on:click="clickItem(i)" v-bind:class="{active: activeIndex===i}")
-          i.material-icons.remove-btn(v-on:click.stop="" v-on:click="removeItem(i)") clear
           .line.flex-wrapper
             .cell-8.flex-wrapper
               .question-area
@@ -30,7 +29,7 @@
                   .box
                   input(v-bind:placeholder="'보기'" v-model="choice.value").bold
             .cell-4
-              i.material-icons(v-on:click.stop="" v-on:click="removeChoice(i,j)") clear
+              i.material-icons.remove-choice-btn(v-on:click.stop="" v-on:click="removeChoice(i,j)") clear
           .line.bottom
             .cell-8
               .radio-area
@@ -40,6 +39,10 @@
           .footer.flex-wrapper
             .empty
             .util-wrapper
+              i.material-icons.remove-btn(v-on:click.stop="" v-on:click="removeItem(i)") delete
+              .filter-check
+                .text 응답필터
+                .check-box
       .poll-body(v-for="(item, i) in poll.items")
 </template>
 
@@ -182,15 +185,13 @@ export default {
           position: relative
           &.active
             border-left: solid 3px $main-color
-          .remove-btn
-            position: absolute
-            top: 12px
-            right: 24px
           .line
             padding: 5px 12px
             display: flex
             &.bottom
               padding-bottom: 12px
+            .remove-choice-btn
+              color: $grey-color
 
           .choice-area, .question-area
             display: flex
@@ -210,12 +211,30 @@ export default {
               color: $grey-color
               text-indent: 12px
               &:hover
-                color: red
+                color: $sub-color
           .question-area
             @include bottom-shadow(.5)
           .footer
             @include top-shadow(.5)
             height: 80px
             .util-wrapper
+              display: flex
+              align-items: center
+              .remove-btn
+                color: $grey-color
+                padding-right: 12px
+                &:hover
+                  color: $black-color
+              .filter-check
+                width: 120px
+                padding: 0 12px 0 12px
+                border-left: solid 0.5px $grey-color
+                display: flex
+                .text
+                  width: 60px
+                .check-box
+                  width: 20px
+                  height: 20px
+                  background-color: red
 
   </style>

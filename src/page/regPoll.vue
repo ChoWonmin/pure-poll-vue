@@ -12,7 +12,7 @@
               .input-wrapper
                 Input(:icon="'mail'", :placeholder="'조사 기관'", ref="orgName")
             .line
-              date-picker(v-model="date" date="datetime" lang="en" range=true width="100%" ref="date")
+              date-picker(v-model="date" date="datetime" lang="en" range=true width="100%" placeholder="여론조사 기간을 입력하세" ref="date")
           .col.right.cell-6
             .line
               .input-wrapper
@@ -68,6 +68,9 @@ export default {
 
       if (isError) {
         this.error = '누락된 값이 있습니다.';
+        return null;
+      } else if (this.$refs.date.value[0] < new Date()) {
+        this.error = '현재시간보다 여론조사 시작시간이 더 빠릅니다.';
         return null;
       } else {
         this.$store.state.regPollData = data;

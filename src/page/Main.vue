@@ -13,7 +13,7 @@
         .load(v-show="!isLoad")
           Spinner()
         .item-wrapper(v-for="item in pollList" v-show="isLoad").cell-2
-          .item
+          .item(v-on:click="show")
             .image-wrap
               img(v-bind:src="item.mainImage").mainImage
             .content-wrap
@@ -28,12 +28,20 @@
                 .text.view 558
                 .empty
                 i.material-icons.icon start
+    modal(name="poll-info-modal" width="1050px" height="1560px").poll-info-modal
+      .body
+        .content
+        .side
 </template>
 
 <script>
+import Vue from 'vue';
+import VModal from 'vue-js-modal';
 import { dataModule, storageModule } from '../api/firebase.wrapper';
 import DropDown from '../components/DropDown';
 import Spinner from '../components/Spinner';
+
+Vue.use(VModal);
 
 export default {
   components: {
@@ -58,6 +66,12 @@ export default {
     this.isLoad = true;
   },
   methods: {
+    show() {
+      this.$modal.show('poll-info-modal');
+    },
+    hide() {
+      this.$modal.hide('poll-info-modal');
+    },
     getImage: async url => await storageModule.dowonloadUrl(`pollList/${url}.jpeg`)
   }
 };
@@ -140,5 +154,15 @@ export default {
                   width: 36px
                   line-height: 22px
                   text-indent: 4px
+    .poll-info-modal
+      .body
+        display: flex
+        .content
+          width: 820px
+          height: 1560px
+          background-color: #d4e5f5
+        .side
+          width: calc(100% - 820px)
+          height: 1560px
 
 </style>

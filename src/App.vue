@@ -2,18 +2,21 @@
   <div id="app">
     <Header/>
     <router-view/>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import { store } from './vuex/store';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 export default {
   name: 'App',
   store,
   components: {
-    Header
+    Header,
+    Footer
   },
   methods: {},
   mounted() {
@@ -24,13 +27,11 @@ export default {
 </script>
 
 <style scoped lang="sass">
-  @import "./style/grid"
-  @import "./style/global"
   @import "./style/variable"
   @import "./style/font"
 
-  body.home
-    margin: 0
+  body
+    margin: 0 !important
     background-color: #a5d6a7
   *
     box-sizing: border-box
