@@ -36,6 +36,7 @@
 
 <script>
 import DatePicker from 'vue2-datepicker';
+import { store } from '../vuex/store';
 import DropDown from '../components/DropDown';
 import Input from '../components/Input';
 
@@ -59,8 +60,9 @@ export default {
       Object.keys(this.$refs).forEach((key) => {
         const value = this.$refs[key].value;
         if (!value) {
-          data[key] = value;
           isError = true;
+        } else {
+          data[key] = value;
         }
       });
 
@@ -68,8 +70,8 @@ export default {
         this.error = '누락된 값이 있습니다.';
         return null;
       } else {
-        console.log(data);
-        this.$router.push('/makePoll', data);
+        this.$store.state.regPollData = data;
+        this.$router.push('/makePoll');
       }
     }
   }

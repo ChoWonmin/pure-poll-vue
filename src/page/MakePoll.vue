@@ -45,11 +45,13 @@
 
 <script>
 import uuidv4 from 'uuid/v4';
+import { store } from '../vuex/store';
 import { dataModule, storageModule } from '../api/firebase.wrapper';
 
 export default {
   data() {
     return {
+      member: undefined,
       mainImage: undefined,
       poll: {
         name: undefined,
@@ -61,7 +63,8 @@ export default {
             isActive: true,
             choices: [{ value: '' }]
           }
-        ]
+        ],
+        meta: this.$store.state.regPollData
       },
       activeIndex: 0
     };
@@ -83,6 +86,7 @@ export default {
       if (!this.mainImage) {
         console.log('메인 이미지를 등록해주세요');
       } else {
+        console.log(this.poll);
         await storageModule.upload(`pollList/${this.poll.mainImage}`, this.mainImage);
         dataModule.push('pollList', this.poll);
         this.$router.push('/');
@@ -99,7 +103,6 @@ export default {
     },
     addChoice(i) {
       const item = this.poll.items[i];
-      item.choicesIndex += 1;
       item.choices.push({ value: '' });
     },
     removeChoice(i, j) {

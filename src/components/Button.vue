@@ -104,8 +104,10 @@ export default {
       color : lighten($main-color,10)
     &.transparent
       color: $sub-color
+      height : 28px
+      line-height : 28px
       background-color: #ffffff
-      border: solid 2px
+      border: solid 1px
       box-shadow: 0 2px 6px -1px $black-color
       &:hover
         background-color: lighten($sub-color,30)

@@ -6,9 +6,8 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     count: 0,
-    pollItems: [
-      { isActive: false }
-    ]
+    user: undefined,
+    regPollData: undefined
   },
   /** 반드시 동기여야 한다.
    * method 이름이 문자열 이므로 상수로 빼둘 필요가 있다.
@@ -31,7 +30,8 @@ const store = new Vuex.Store({
   },
   getters: {
     getCount: state => state.count,
-    getPollItems: state => state.pollItems
+    currentUser: state => state.user,
+    getRegPollData: state => state.regPollData
   }
 });
 
