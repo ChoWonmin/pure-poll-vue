@@ -42,16 +42,20 @@
               i.material-icons.remove-btn(v-on:click.stop="" v-on:click="removeItem(i)") delete
               .filter-check
                 .text 응답필터
-                .check-box
+                CheckBox(check="check")
       .poll-body(v-for="(item, i) in poll.items")
 </template>
 
 <script>
 import uuidv4 from 'uuid/v4';
 import { store } from '../vuex/store';
+import CheckBox from '../components/CheckBox';
 import { dataModule, storageModule } from '../api/firebase.wrapper';
 
 export default {
+  components: {
+    CheckBox
+  },
   data() {
     return {
       member: undefined,
@@ -175,8 +179,11 @@ export default {
           opacity: 0
 
     .poll-container
+      background-color: #fff
+      z-index: 10
       position: absolute
       width: 980px
+      // height: calc(100vh - #{$top-indent} - 180px)
       top: $top-indent
       @include card-box-shadow()
       .poll-body
@@ -185,6 +192,7 @@ export default {
           position: relative
           &.active
             border-left: solid 3px $main-color
+            @include card-box-shadow
           .line
             padding: 5px 12px
             display: flex

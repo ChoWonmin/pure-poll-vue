@@ -21,7 +21,7 @@ export default {
   @import "../style/variable"
 
   .footer
-    position: absolute
+    position: fixed
     bottom: 0
     width: 100%
     height: 50px
