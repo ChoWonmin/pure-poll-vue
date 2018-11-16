@@ -5,15 +5,15 @@
       .nav-bar.flex-wrapper
         b.nav-btn 회사소개
         router-link(tag="b" to="/responsePoll").nav-btn 여론조사
-        router-link(tag="b" to="/regPoll" v-show="user").nav-btn 여론작성
+        router-link(tag="b" to="/regPoll" v-show="$store.getters.currentUser").nav-btn 여론작성
         //router-link(tag="b" to="/makePoll").nav-btn 여론작성
       .empty
       .btn-wrapper.flex-wrapper
-        b.login-nav(v-on:click="show", v-show="!user") 로그인
-        b.id-nav(v-show="user") {{email}}님
-        b.logout-nav(v-show="user", v-on:click="clickLogout()") 로그아웃
-        router-link(tag="b" to="/register" v-show="!user").register-nav 회원가입
-        router-link(tag="b" to="/register" v-show="user").register-nav My Page
+        b.login-nav(v-on:click="show", v-show="!$store.getters.currentUser") 로그인
+        b.id-nav(v-show="$store.getters.currentUser") {{email}}님
+        b.logout-nav(v-show="$store.getters.currentUser", v-on:click="clickLogout()") 로그아웃
+        router-link(tag="b" to="/register" v-show="!$store.getters.currentUser").register-nav 회원가입
+        router-link(tag="b" to="/register" v-show="$store.getters.currentUser").register-nav My Page
     modal(name="login-modal")
       .info-container.center-wrapper
         .info
@@ -41,6 +41,7 @@
 <script>
 import VModal from 'vue-js-modal';
 import Vue from 'vue';
+import { store } from '../vuex/store';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { authModule } from '../api/firebase.wrapper';
@@ -50,14 +51,18 @@ Vue.use(VModal);
 export default {
   data() {
     return {
-      user: undefined,
       email: undefined
     };
   },
   mounted() {
-    this.user = authModule.currentUser;
+    this.$store.state.user = authModule.currentUser;
   },
   components: { VModal, Button, Input },
+  computed: {
+    getUser() {
+      return this.$store.getters.currentUser;
+    }
+  },
   methods: {
     show() {
       this.$modal.show('login-modal');
@@ -70,15 +75,16 @@ export default {
       const password = this.$refs.password.value;
 
       authModule.signInWithEmailAndPassword(id, password).then(() => {
-        this.user = authModule.currentUser;
-        this.email = this.user.email;
+        this.$store.state.user = authModule.currentUser;
+        this.email = this.$store.getters.currentUser.email;
         this.hide();
       }).catch((err) => {
         console.log(err);
       });
     },
     clickLogout() {
-      this.user = undefined;
+      this.$store.state.user = undefined;
+      console.log(this.$store.getters.currentUser);
     }
   }
 };
