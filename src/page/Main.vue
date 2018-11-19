@@ -13,7 +13,7 @@
         .load(v-show="!isLoad")
           Spinner()
         .item-wrapper(v-for="item in pollList" v-show="isLoad").cell-2
-          .item(v-on:click="show")
+          .item(v-on:click="show(item)")
             .image-wrap
               img(v-bind:src="item.mainImage").mainImage
             .content-wrap
@@ -29,9 +29,17 @@
                 .empty
                 i.material-icons.icon start
     modal(name="poll-info-modal" width="1050px" height="1560px").poll-info-modal
-      .body
+      .wrapper
         .content
-        .side
+          .header 설문조사 결과
+          .body
+            .item-line {{ modalItem }}
+              .card-item
+              .card-item
+              .card-item
+            .iteml-line(v-for="item in modalItem.items")
+              .text {{ item }} ======
+        .side {{ modalItem.name }}
 </template>
 
 <script>
@@ -51,14 +59,11 @@ export default {
   data() {
     return {
       pollList: undefined,
-      isLoad: false
+      isLoad: false,
+      modalItem: {}
     };
   },
   async mounted() {
-    // console.log(await window.web3.currentProvider);
-    // window.web3 = new Web3(await window.web3.currentProvider);
-    // const defaultAccount = await web3.eth.accounts[0];
-    // web3.eth.sendTransaction({from: defaultAccount})
     this.pollList = (await dataModule.get('pollList')).val();
     for (const k in this.pollList) {
       this.pollList[k].mainImage = await storageModule.dowonloadUrl(`pollList/${this.pollList[k].mainImage}`);
@@ -66,7 +71,8 @@ export default {
     this.isLoad = true;
   },
   methods: {
-    show() {
+    show(item) {
+      this.modalItem = item;
       this.$modal.show('poll-info-modal');
     },
     hide() {
@@ -81,6 +87,7 @@ export default {
   @import "../style/global"
   @import "../style/variable"
   @import "../style/grid"
+  @import "../style/pollMoadl"
 
   .main
     width: 100%
@@ -154,15 +161,4 @@ export default {
                   width: 36px
                   line-height: 22px
                   text-indent: 4px
-    .poll-info-modal
-      .body
-        display: flex
-        .content
-          width: 820px
-          height: 1560px
-          background-color: #d4e5f5
-        .side
-          width: calc(100% - 820px)
-          height: 1560px
-
 </style>

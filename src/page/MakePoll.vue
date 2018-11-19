@@ -42,7 +42,8 @@
               i.material-icons.remove-btn(v-on:click.stop="" v-on:click="removeItem(i)") delete
               .filter-check
                 .text 응답필터
-                CheckBox(check="check")
+                input(type='checkbox' v-model="item.filter")
+                // CheckBox(check="check")
       .poll-body(v-for="(item, i) in poll.items")
 </template>
 
@@ -68,7 +69,8 @@ export default {
           {
             question: undefined,
             isActive: true,
-            choices: [{ value: '' }]
+            choices: [{ value: '' }],
+            filter: false
           }
         ],
         meta: this.$store.state.regPollData
@@ -93,9 +95,10 @@ export default {
       if (!this.mainImage) {
         console.log('메인 이미지를 등록해주세요');
       } else {
-        console.log(this.poll);
+        const id = dataModule.getUniqueKey('pollList');
         await storageModule.upload(`pollList/${this.poll.mainImage}`, this.mainImage);
-        dataModule.push('pollList', this.poll);
+        this.poll['id'] = id;
+        dataModule.update(`pollList/${id}`, this.poll);
         this.$router.push('/');
       }
     },
@@ -130,6 +133,7 @@ export default {
   @import "../style/variable"
   @import "../style/global"
   @import "../style/grid"
+  @import "../style/checkBox"
 
   $top-indent: 48px
 

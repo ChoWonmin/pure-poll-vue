@@ -93,6 +93,7 @@ export default {
     .reg-poll
       width: 840px
       @include card-box-shadow
+      background-color: #fff
       .header
         height: 72px
         color: $black-color

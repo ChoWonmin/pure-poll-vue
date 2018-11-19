@@ -58,6 +58,7 @@ export default {
     .poll
       margin-top: 24px
       width: 100%
+      background-color: #fff
       @include card-box-shadow
       .header
         padding: 12px 24px
