@@ -8,7 +8,7 @@ import ResponsePoll from '../page/ResponsePoll';
 import Register from '../page/Register';
 import RegisterOrg from '../page/RegisterOrg';
 import RegisterRes from '../page/RegisterRes';
-
+import Introduce from '../page/Introduce';
 
 Vue.use(Router);
 
@@ -54,6 +54,11 @@ export default new Router({
       path: '/registerRes',
       name: 'RegisterRes',
       component: RegisterRes
+    },
+    {
+      path: '/introduce',
+      name: 'Introduce',
+      component: Introduce
     }
   ]
 });

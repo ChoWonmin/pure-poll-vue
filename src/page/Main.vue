@@ -28,24 +28,26 @@
                 .text.view 558
                 .empty
                 i.material-icons.icon start
-    modal(name="poll-info-modal" width="1050px" height="1560px").poll-info-modal
-      .wrapper
-        .content
-          .header 설문조사 결과
-          .body
-            .item-line {{ modalItem }}
-              .card-item
-              .card-item
-              .card-item
-            .iteml-line(v-for="item in modalItem.items")
-              .text {{ item }} ======
-        .side {{ modalItem.name }}
+    // modal(name="poll-info-modal" width="1050px" height="1560px").poll-info-modal
+    //    .wrapper
+    //      VisPoll()
+    //      .content
+    //        .header 설문조사 결과
+    //        .body
+    //          .item-line {{ modalItem }}
+    //            .card-item
+    //            .card-item
+    //            .card-item
+    //          .iteml-line(v-for="item in modalItem.items")
+    //            .text {{ item }} ======
+    //      .side {{ modalItem.name }}
 </template>
 
 <script>
 import Vue from 'vue';
 import VModal from 'vue-js-modal';
 import { dataModule, storageModule } from '../api/firebase.wrapper';
+import VisPoll from './PollModal';
 import DropDown from '../components/DropDown';
 import Spinner from '../components/Spinner';
 
@@ -54,7 +56,8 @@ Vue.use(VModal);
 export default {
   components: {
     DropDown,
-    Spinner
+    Spinner,
+    VisPoll
   },
   data() {
     return {

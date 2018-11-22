@@ -1,21 +1,17 @@
 <template lang="jade">
-  .visPoll {{hello}}
+  .bar-chart
+    svg
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      item: undefined
-    };
-  },
-  mounted() {
-    this.item = '';
+  props: {
+    item: {}
   },
   methods: {}
 };
 </script>
 
 <style scoped lang="sass">
-
+  width: 100%
 </style>

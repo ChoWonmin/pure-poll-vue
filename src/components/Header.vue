@@ -3,10 +3,9 @@
     .content.flex-wrapper
       router-link(tag="div" to="/").logo.eng(v) PurePoll
       .nav-bar.flex-wrapper
-        b.nav-btn 회사소개
+        router-link(tag="b" to="/introduce").nav-btn 회사소개
         router-link(tag="b" to="/responsePoll").nav-btn 여론조사
         router-link(tag="b" to="/regPoll" v-show="$store.getters.currentUser").nav-btn 여론작성
-        //router-link(tag="b" to="/makePoll").nav-btn 여론작성
       .empty
       .btn-wrapper.flex-wrapper
         b.login-nav(v-on:click="show", v-show="!$store.getters.currentUser") 로그인
