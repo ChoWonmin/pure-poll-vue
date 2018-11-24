@@ -1,11 +1,9 @@
 <template lang="jade">
   .container
     .bar-wapper
-      //BarChart(items="#{ barData }")
+      BarChart(:items="barData")
     .bar-wapper
-      BarChart(:items="[{name: 'A', value:70}]")
-    .bar-wapper
-      //BarChart()
+      BarChart()
 </template>
 
 <script>
@@ -23,12 +21,16 @@ export default {
           value: 80
         },
         {
-          name: 'A',
-          value: 80
+          name: 'B',
+          value: 60
         },
         {
-          name: 'A',
-          value: 80
+          name: 'C',
+          value: 40
+        },
+        {
+          name: 'D',
+          value: 100
         }
       ]
     };

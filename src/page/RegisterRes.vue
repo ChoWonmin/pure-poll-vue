@@ -146,6 +146,7 @@ export default {
     height: calc(100vh - #{$header-height})
     padding-top: 40px
     flex: 6
+    background-color: #fff
     .title
       font-size: 24px
     .sub-title

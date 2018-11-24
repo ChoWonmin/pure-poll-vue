@@ -1,6 +1,5 @@
 <template lang="jade">
   .bar-chart
-    .text {{items}} {{rects}}
     svg#barchart(v-bind:style="{width:width, height: height}")
       g#background
       g#foreground
@@ -55,11 +54,9 @@ export default {
       maxValue: -1
     };
   },
-  beforeMount() {
+  mounted() {
     this.maxValue = this.items.reduce((ac, a) => (ac.value > a.value) ? ac.value : a.value);
     this.rectHeight = this.height - 2 * this.padding;
-
-    console.log(this.maxValue);
 
     for (let i=0; i<this.items.length; i++) {
       const rect = {

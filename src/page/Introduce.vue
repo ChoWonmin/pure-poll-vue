@@ -1,24 +1,45 @@
 <template lang="jade">
   .container
-    .left-view.center-wrapper
-      .title 당신의 의견을 안전하고 정확하게
-      .sub-title PurePoll은 여론조사입니다.
-      .sub-title 쉽고 직관적이지만, 안전하게 여론조사를 관리합니다.
-      .sub-title 당신의 소중한 의견으로 새로운 세상을 만들어 보세요.
-      .btn-nav
-        Button(:name="'회원가입'", :option="'big'", v-on:click="gotoRegister")
-    .right-view
-      .terminal-nav
-        .terminal-top
-          .circle-nav
-            .circle-red
-            .empty
-            .circle-yellow
-            .empty
-            .circle-green
-            .empty
-            .box-nav
-          .rec-nav
+    .first-container
+      .left-view.center-wrapper
+        .title 당신의 의견을 안전하고 정확하게
+        .sub-title PurePoll은 여론조사입니다.
+        .sub-title 쉽고 직관적이지만, 안전하게 여론조사를 관리합니다.
+        .sub-title 당신의 소중한 의견으로 새로운 세상을 만들어 보세요.
+        .btn-nav
+          Button(:name="'회원가입'", :option="'big'", v-on:click="gotoRegister")
+      .right-view
+        .terminal-nav
+          .terminal-top
+            .circle-nav
+              .circle-red
+              .empty
+              .circle-yellow
+              .empty
+              .circle-green
+              .empty
+              .box-nav
+            .rec-nav
+    .second-container
+      .title 언제 어디서나 여론조사 해보세요!
+      .sub-title 퓨어폴은 어디서나 사용가능합니다.
+      .sub-title 투명한 여론조사를 이끌어가겠습니다.
+      .box-nav
+        .box
+          i.material-icons.icon-nav assessment
+          .box-title 데이터 시각화
+          .box-content 여론조사 결과를 시각화하여
+          .box-content 직관적인 화면을 제공합니다.
+        .box
+          i.material-icons.icon-nav share
+          .box-title 분산 저장
+          .box-content 분산 저장 기술을 통하여
+          .box-content 사용자의 답변을 저장합니다.
+        .box
+          i.material-icons.icon-nav tv
+          .box-title 온라인 여론조사
+          .box-content 온라인을 통하여 손쉽게
+          .box-content 여론조사 서비스를 제공합니다.
 </template>
 
 <script>
@@ -57,63 +78,110 @@ export default {
 
 .container
   text-align: center
-  display: flex
+  background-image: linear-gradient(90deg, #efefef 0%, #c3cfe2 100%)
   height: calc(100vh - #{$header-height})
-  .left-view
+  .first-container
+    display: flex
+    .left-view
+      padding-left: 20px
+      padding-top: 100px
+      flex: 4
+      text-align: left
+      .title
+        font-size: 24px
+        font-weight: bold
+        padding-bottom: 40px
+      .sub-title
+        padding-top: 20px
+        font-weight: normal
+        font-size: 18px
+      .btn-nav
+        cursor: pointer
+        height: 100px
+        width: 200px
+        padding-top: 60px
+    .right-view
+      padding-right: 20px
+      height: calc(100vh - #{$header-height})
+      padding-top: 40px
+      flex: 6
+      .terminal-nav
+        height: 400px
+        border-radius: 10px
+        background-color: #fff
+        .terminal-top
+          height: 50px
+          border-top-left-radius: 10px
+          border-top-right-radius: 10px
+          background-color: lighten($grey-color,30)
+          .circle-nav
+            display: flex
+            padding-top: 12.5px
+            padding-left: 12.5px
+            .circle-red
+              border: solid 0.5px darken(red,10)
+              border-radius: 50px
+              width: 25px
+              height: 25px
+              background-color: lighten(red,10)
+            .circle-yellow
+              border: solid 0.5px darken(yellow,15)
+              border-radius: 50px
+              width: 25px
+              height: 25px
+              background-color: darken(yellow,5)
+            .circle-green
+              border: solid 0.5px green
+              border-radius: 50px
+              width: 25px
+              height: 25px
+              background-color: lighten(green,10)
+            .empty
+              width: 10px
+            .box-nav
+              width: 500px
+              border-radius: 5px
+              height: 25px
+              background-color: #fff
+          .rec-nav
+  .second-container
+    background-image: linear-gradient(0deg, #89f7fe -50%, #4476ff 120%)
+    height: calc(100vh - #{$header-height})
+    padding-left: 150px
     padding-top: 100px
-    flex: 4
     text-align: left
+    color: #fff
     .title
-      font-size: 24px
       font-weight: bold
-      padding-bottom: 40px
+      font-size: 30px
+      padding-bottom: 30px
     .sub-title
-      padding-top: 20px
+      padding-bottom:  18px
       font-weight: normal
       font-size: 18px
-    .btn-nav
-      cursor: pointer
-      height: 100px
-      width: 200px
-      padding-top: 60px
-  .right-view
-    height: calc(100vh - #{$header-height})
-    padding-top: 40px
-    flex: 6
-    .terminal-nav
-      height: 400px
-      border-radius: 10px
-      background-color: #fff
-      .terminal-top
-        height: 50px
-        border-top-left-radius: 10px
-        border-top-right-radius: 10px
-        background-color: lighten($grey-color,30)
-        .circle-nav
-          display: flex
-          padding-top: 12.5px
-          padding-left: 12.5px
-          .circle-red
-            border-radius: 50px
-            width: 25px
-            height: 25px
-            background-color: lighten(red,10)
-          .circle-yellow
-            border-radius: 50px
-            width: 25px
-            height: 25px
-            background-color: darken(yellow,5)
-          .circle-green
-            border-radius: 50px
-            width: 25px
-            height: 25px
-            background-color: lighten(green,10)
-          .empty
-            width: 10px
-          .box-nav
-            width: 550px
-            border-radius: 5px
-            height: 25px
-            background-color: #fff
-        .rec-nav
+    .box-nav
+      display: flex
+      .box
+        color: black
+        margin-right: 30px
+        text-align: center
+        border-radius: 20px
+        background-color: #fff
+        width: 250px
+        height: 300px
+        .icon-nav
+          padding-top: 10px
+          font-size: 100px
+          color: $sub-color
+        .box-title
+          padding-top: 12px
+          padding-bottom: 12px
+          font-weight: bold
+          color: $main-color
+          font-size: 24px
+        .box-content
+          padding-top: 6px
+          color: $grey-color
+          font-size: 16px
+
 </style>
