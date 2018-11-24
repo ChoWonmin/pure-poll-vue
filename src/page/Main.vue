@@ -13,8 +13,8 @@
         .load(v-show="!isLoad")
           Spinner()
         .item-wrapper(v-for="item in pollList" v-show="isLoad").cell-2
-          .item(v-on:click="show(item)")
-            .image-wrap
+          .item
+            router-link(tag="b" to="/visPoll").image-wrap
               img(v-bind:src="item.mainImage").mainImage
             .content-wrap
               .name {{item.name}}

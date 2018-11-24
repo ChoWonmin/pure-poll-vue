@@ -5,7 +5,7 @@
       .name {{name}}
       .arrow.material-icons {{arrow}}
     .dropdowncontent( v-show="visible" )
-      .child( v-for = "(aaa, i) in optionIcons", v-on:click="clickchild(i)", v-model="selected")
+      .child(v-for = "(aaa, i) in optionIcons", v-on:click="clickchild(i)", v-model="selected")
         .child-icon.material-icons {{aaa['icon']}}
         .child-text {{aaa['text']}}
 </template>

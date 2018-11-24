@@ -25,7 +25,7 @@ module.exports = {
   },
   // add your custom rules here
   rules: {
-    "max-len": [2, 140, 4, {"ignoreUrls": true}],
+    "max-len": [2, 180, 4, {"ignoreUrls": true}],
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       js: 'never',
