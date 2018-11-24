@@ -31,7 +31,6 @@ export default {
         this.value = true;
         this.check = 'check';
       }
-      console.log(this.value);
     }
   }
 };

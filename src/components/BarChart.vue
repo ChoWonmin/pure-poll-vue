@@ -45,6 +45,10 @@ export default {
     padding: {
       type: Number,
       default: 30
+    },
+    gap: {
+      type: Number,
+      default: 5
     }
   },
   data() {
@@ -60,7 +64,7 @@ export default {
 
     for (let i=0; i<this.items.length; i++) {
       const rect = {
-        x: this.padding + i * (this.rectWidth + this.padding),
+        x: this.padding + i * (this.rectWidth + this.gap),
         y: this.padding + (this.maxValue - this.items[i].value ) / this.maxValue * this.rectHeight,
         width: this.rectWidth,
         height: this.items[i].value / this.maxValue * this.rectHeight,

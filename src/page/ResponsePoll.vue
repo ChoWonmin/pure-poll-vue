@@ -16,10 +16,10 @@
             .line.flex-wrapper
               input(type='radio').radio-input
               .num {{j+1}}.
-              .choice {{choice}}
+              .choice {{choice.value}}
       .footer.question-wrapper
         .submit-btn-wrapper
-          Button(:name="'제출하기'", :option="'large'")
+          Button(:name="'제출하기'", :option="'large'" v-on:click="submit")
     .empty
 </template>
 
@@ -40,10 +40,13 @@ export default {
     };
   },
   async mounted() {
-    this.poll = (await dataModule.get('pollList/-LQCY50X8i7-mCl9jS-B')).val();
+    this.poll = (await dataModule.get('pollList/-LS4HX3UDSdh3jKbdPfU')).val();
     this.isLoad = true;
   },
   methods: {
+    submit() {
+      console.log(this.poll);
+    }
   }
 };
 </script>

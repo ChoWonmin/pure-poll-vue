@@ -12,9 +12,9 @@
       .items-wrapper.grid
         .load(v-show="!isLoad")
           Spinner()
-        .item-wrapper(v-for="item in pollList" v-show="isLoad").cell-2
+        router-link(tag="div", :to="{name: 'VisPoll', params:{poll: item}}").item-wrapper(v-for="item in pollList" v-show="isLoad").cell-2
           .item
-            router-link(tag="b" to="/visPoll").image-wrap
+            .image-wrap
               img(v-bind:src="item.mainImage").mainImage
             .content-wrap
               .name {{item.name}}
@@ -28,36 +28,17 @@
                 .text.view 558
                 .empty
                 i.material-icons.icon start
-    // modal(name="poll-info-modal" width="1050px" height="1560px").poll-info-modal
-    //    .wrapper
-    //      VisPoll()
-    //      .content
-    //        .header 설문조사 결과
-    //        .body
-    //          .item-line {{ modalItem }}
-    //            .card-item
-    //            .card-item
-    //            .card-item
-    //          .iteml-line(v-for="item in modalItem.items")
-    //            .text {{ item }} ======
-    //      .side {{ modalItem.name }}
 </template>
 
 <script>
-import Vue from 'vue';
-import VModal from 'vue-js-modal';
 import { dataModule, storageModule } from '../api/firebase.wrapper';
-import VisPoll from './PollModal';
 import DropDown from '../components/DropDown';
 import Spinner from '../components/Spinner';
-
-Vue.use(VModal);
 
 export default {
   components: {
     DropDown,
-    Spinner,
-    VisPoll
+    Spinner
   },
   data() {
     return {
@@ -67,6 +48,7 @@ export default {
     };
   },
   async mounted() {
+    dataModule.genData('asf');
     this.pollList = (await dataModule.get('pollList')).val();
     for (const k in this.pollList) {
       this.pollList[k].mainImage = await storageModule.dowonloadUrl(`pollList/${this.pollList[k].mainImage}`);
