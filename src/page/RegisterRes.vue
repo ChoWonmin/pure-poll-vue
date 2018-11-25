@@ -37,7 +37,7 @@
             .empty
             .drop-down-nav
               Dropdown(:name="'지역구를 선택해주세요'", :icon="'add'",
-              :optionIcons="[{text:'서울특별시', icon:'location_on'},{text:'경기도', icon:'location_on'}]", ref="location")
+              :optionIcons="[{text:'서울특별시', icon:'location_on'},{text:'경기도', icon:'location_on'},{text:'세종특별시', icon:'location_on'},{text:'충청남도', icon:'location_on'},{text:'충청북도', icon:'location_on'},{text:'강원도', icon:'location_on'},{text:'경상남도', icon:'location_on'},{text:'경상북도', icon:'location_on'},{text:'전라남도', icon:'location_on'},{text:'전라북도', icon:'location_on'},{text:'제주특별자치도', icon:'location_on'}]", ref="location")
             .empty
           .error-box(v-show="locationerror") 필수 항목입니다.
           .flexing

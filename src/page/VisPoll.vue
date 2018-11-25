@@ -1,20 +1,22 @@
 <template lang="jade">
   .container
     .bar-wapper
-      //BarChart(:items="barData", :width="1000")
-    .bar-wapper
       ParallelCoordinate(:width="900", :height="500", :items="parallelData", :axis="axis")
+    .bar-wapper
+    //  PieChart(:radius="50", :donut-width="10", :pie-width="30")
 </template>
 
 <script>
 import _ from 'lodash';
 import { dataModule } from '../api/firebase.wrapper';
 import BarChart from '../components/BarChart';
+import PieChart from '../components/PieChart';
 import ParallelCoordinate from '../components/ParallelCoordinate';
 
 export default {
   components: {
     BarChart,
+    PieChart,
     ParallelCoordinate
   },
   data() {
@@ -68,7 +70,24 @@ export default {
       this.parallelData.push(e.poll);
     });
 
-    this.axis = _.map(this.parallelData[0], (e, i) => `${i+1}번 문항`);
+    this.axis = _.map(this.parallelData[0], (e, i) => {
+      const obj = {};
+      obj.name = `${i + 1}번 문항`;
+      obj.min = e;
+      obj.max = e;
+      return obj;
+    });
+
+    for (let i = 1; i < this.parallelData.length; i++) {
+      const item = this.parallelData[i];
+      _.forEach(this.axis, (e, j) => {
+        if(e.max < item[j])
+          e.max = item[j];
+        if(e.min > item[j])
+          e.min = item[j];
+      });
+    }
+
   },
   methods: {}
 };

@@ -10,7 +10,6 @@ import RegisterOrg from '../page/RegisterOrg';
 import RegisterRes from '../page/RegisterRes';
 import Introduce from '../page/Introduce';
 import VisPoll from '../page/VisPoll';
-import Developer from '../page/Developer';
 
 Vue.use(Router);
 
@@ -66,11 +65,6 @@ export default new Router({
       path: '/visPoll',
       name: 'VisPoll',
       component: VisPoll
-    },
-    {
-      path: '/developer',
-      name: 'Developer',
-      component: Developer
     }
   ]
 });
