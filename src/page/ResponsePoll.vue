@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     submit() {
-      console.log(this.poll);
+      // console.log(this.poll);
     }
   }
 };

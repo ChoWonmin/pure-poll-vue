@@ -3,11 +3,12 @@
     .bar-wapper
       //BarChart(:items="barData", :width="1000")
     .bar-wapper
-      ParallelCoordinate(:width="900", :height="500")
+      ParallelCoordinate(:width="900", :height="500", :items="parallelData", :axis="axis")
 </template>
 
 <script>
-import dataModule from '../api/firebase.wrapper';
+import _ from 'lodash';
+import { dataModule } from '../api/firebase.wrapper';
 import BarChart from '../components/BarChart';
 import ParallelCoordinate from '../components/ParallelCoordinate';
 
@@ -19,7 +20,7 @@ export default {
   data() {
     return {
       poll: [],
-      resPollList: [],
+      resList: [],
       barData: [
         {
           name: 'A',
@@ -54,29 +55,20 @@ export default {
           value: 100
         }
       ],
-      parallelData: [
-        {
-          name: 'A',
-          value: 80
-        },
-        {
-          name: 'B',
-          value: 60
-        },
-        {
-          name: 'C',
-          value: 40
-        },
-        {
-          name: 'D',
-          value: 100
-        }
-      ]
+      parallelData: [],
+      axis: []
     };
   },
-  mounted() {
+  async mounted() {
     this.poll = this.$route.params.poll;
-    this.pollList = dataModule.get();
+    // this.resList = (await dataModule.get(`resList/${this.poll.id}`)).val();
+    this.resList = (await dataModule.get('resList/-LS4HX3UDSdh3jKbdPfU')).val();
+
+    _.forEach(this.resList, (e) => {
+      this.parallelData.push(e.poll);
+    });
+
+    this.axis = _.map(this.parallelData[0], (e, i) => `${i+1}번 문항`);
   },
   methods: {}
 };

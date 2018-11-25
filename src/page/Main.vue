@@ -48,7 +48,7 @@ export default {
     };
   },
   async mounted() {
-    dataModule.genData('asf');
+    // dataModule.genData('asf');
     this.pollList = (await dataModule.get('pollList')).val();
     for (const k in this.pollList) {
       this.pollList[k].mainImage = await storageModule.dowonloadUrl(`pollList/${this.pollList[k].mainImage}`);
