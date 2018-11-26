@@ -14,7 +14,7 @@
             .question {{i+1}}.{{item.question}}
           .choices(v-for="choice,j in item.choices")
             .line.flex-wrapper
-              input(type='radio').radio-input
+              input(type='radio' v-bind:value='choice.value' v-model='resPoll[i]').radio-input
               .num {{j+1}}.
               .choice {{choice.value}}
       .footer.question-wrapper
@@ -25,6 +25,7 @@
 
 <script>
 import { dataModule } from '../api/firebase.wrapper';
+import blockchain from '../api/blockchain';
 import Spinner from '../components/Spinner';
 import Button from '../components/Button';
 
@@ -36,16 +37,23 @@ export default {
   data() {
     return {
       isLoad: false,
-      poll: undefined
+      poll: undefined,
+      resPoll: [],
+      test: ''
     };
   },
   async mounted() {
     this.poll = (await dataModule.get('pollList/-LS4HX3UDSdh3jKbdPfU')).val();
     this.isLoad = true;
+    this.resPoll = new Array(this.poll.items.length);
   },
   methods: {
     submit() {
-      // console.log(this.poll);
+      for (let i=0; i<this.resPoll.length; i++) {
+        if (this.resPoll[i] === undefined)
+          return ;
+      }
+      blockchain.write(JSON.stringify(this.resPoll), '0x9a41aA815537d679B0E6c0c78146457d10d98960');
     }
   }
 };

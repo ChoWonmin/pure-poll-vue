@@ -76,8 +76,8 @@ export default {
     };
   },
   mounted() {
-    this.axisHeight = this.height - 2*this.padding;
-    this.test = this.axis.length;
+    this.axisHeight = this.height - 2 * this.padding;
+    this.test = 'asfasfasf';
     this.diff = (this.width - 2*this.padding) / (this.axis.length - 1);
 
     for (let i = 0; i < this.items.length; i++) {
