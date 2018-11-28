@@ -69,31 +69,34 @@ export default {
   },
   data() {
     return {
-      diff: -1,
-      paths: [],
-      axisHeight: -1,
-      test: undefined
     };
   },
-  mounted() {
-    this.axisHeight = this.height - 2 * this.padding;
-    this.test = 'asfasfasf';
-    this.diff = (this.width - 2*this.padding) / (this.axis.length - 1);
+  computed: {
+    diff() {
+      return (this.width - 2 * this.padding) / (this.axis.length - 1);
+    },
+    axisHeight() {
+      return this.height - 2 * this.padding;
+    },
+    paths() {
+      const tmp = [];
+      for (let i = 0; i < this.items.length; i++) {
+        const item = this.items[i];
 
-    for (let i = 0; i < this.items.length; i++) {
-      const item = this.items[i];
+        const path = {};
+        path.d = `M 30 ${this.padding + this.axisHeight - this.axisHeight * (item[0] - this.axis[0].min) / (this.axis[0].max - this.axis[0].min)} `;
 
-      const path = {};
-      path.d = `M ${this.padding} 100 `;
-      for (let j = 1; j < this.item.length; j++) {
-        const y = (item[j] - this.axis[j].min) / (this.axis[j].max - this.axis[j].min);
-        path.d += `L ${this.padding + this.diff * j} ${y} `;
+        for (let j = 1; j < item.length; j++) {
+          const val = (item[j] - this.axis[j].min) / (this.axis[j].max - this.axis[j].min);
+          const y = this.padding + this.axisHeight - this.axisHeight * val;
+          path.d += `L ${this.padding + this.diff * j} ${y} `;
+        }
+
+        tmp.push(path);
       }
-
-      this.paths.push(path);
+      return tmp;
     }
-  },
-  methods: {}
+  }
 };
 </script>
 

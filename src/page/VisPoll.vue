@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      poll: [],
+      poll: undefined,
       resList: [],
       barData: [
         {
@@ -56,38 +56,44 @@ export default {
           name: 'D',
           value: 100
         }
-      ],
-      parallelData: [],
-      axis: []
+      ]
     };
   },
   async mounted() {
     this.poll = this.$route.params.poll;
     // this.resList = (await dataModule.get(`resList/${this.poll.id}`)).val();
     this.resList = (await dataModule.get('resList/-LS4HX3UDSdh3jKbdPfU')).val();
+  },
+  computed: {
+    parallelData() {
+      const tmp = [];
 
-    _.forEach(this.resList, (e) => {
-      this.parallelData.push(e.poll);
-    });
-
-    this.axis = _.map(this.parallelData[0], (e, i) => {
-      const obj = {};
-      obj.name = `${i + 1}번 문항`;
-      obj.min = e;
-      obj.max = e;
-      return obj;
-    });
-
-    for (let i = 1; i < this.parallelData.length; i++) {
-      const item = this.parallelData[i];
-      _.forEach(this.axis, (e, j) => {
-        if(e.max < item[j])
-          e.max = item[j];
-        if(e.min > item[j])
-          e.min = item[j];
+      _.forEach(this.resList, (e) => {
+        tmp.push(e.poll);
       });
-    }
+      return tmp;
+    },
+    axis() {
+      const tmp = _.map(this.parallelData[0], (e, i) => {
+        const obj = {};
+        obj.name = `${i + 1}번 문항`;
+        obj.min = e;
+        obj.max = e;
+        return obj;
+      });
 
+      for (let i = 1; i < this.parallelData.length; i++) {
+        const item = this.parallelData[i];
+        _.forEach(tmp, (e, j) => {
+          if (e.max < item[j])
+            e.max = item[j];
+          if (e.min > item[j])
+            e.min = item[j];
+        });
+      }
+
+      return tmp;
+    }
   },
   methods: {}
 };
