@@ -8,51 +8,24 @@
           text(v-bind:x="padding + i*diff" v-bind:y="height - padding + 8" fill="black" text-anchor="middle" alignment-baseline="hanging") {{col.name}}
       g#background
       g#foreground
-        template(v-for="path in paths")
-          path(v-bind:d="path.d" fill="none" stroke="red" stroke-width="2")
+        template(v-for="(path, i) in paths")
+          path(v-bind:d="path.d" fill="none" stroke="red" stroke-width="2" opacity="0.1")
 
 </template>
 
 <script>
 import _ from 'lodash';
+import colors from './color';
 
 export default {
   props: {
     items: {
       type: Array,
-      default() {
-        return [
-          {
-            name: 'A',
-            value: 80,
-            1: '1',
-            2: '3',
-            3: '4'
-          },
-          {
-            name: 'B',
-            value: 40,
-            1: '1',
-            2: '3',
-            3: '4'
-          },
-          {
-            name: 'C',
-            value: 100,
-            1: '1',
-            2: '3',
-            3: '4'
-          }
-        ];
-      }
+      required: true
     },
     axis: {
       type: Array,
-      default() {
-        return [
-          '1번 문항', '2번 문항', '3번 문항', '4번 문항', '5번 문항'
-        ];
-      }
+      required: true
     },
     width: {
       type: Number,
@@ -65,6 +38,10 @@ export default {
     padding: {
       type: Number,
       default: 30
+    },
+    group: {
+      type: Array,
+      required: true
     }
   },
   data() {

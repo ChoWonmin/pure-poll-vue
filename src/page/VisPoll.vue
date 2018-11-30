@@ -1,7 +1,7 @@
 <template lang="jade">
   .container
     .bar-wapper
-      ParallelCoordinate(:width="900", :height="500", :items="parallelData", :axis="axis")
+      ParallelCoordinate(:width="900", :height="500", :items="parallelData", :axis="axis", :group="group")
     .bar-wapper
     //  PieChart(:radius="50", :donut-width="10", :pie-width="30")
 </template>
@@ -92,6 +92,16 @@ export default {
         });
       }
 
+      return tmp;
+    },
+    group() {
+      const tmp = [];
+      _.forEach(this.resList, e => {
+        if (e.gender === '남자')
+          tmp.push('1');
+        else
+          tmp.push('2');
+      })
       return tmp;
     }
   },
