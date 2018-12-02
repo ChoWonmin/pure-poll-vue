@@ -16,16 +16,20 @@ export default {
       default() {
         return [
           {
-            name: 'A',
-            value: 80
+            name: '1번',
+            value: 25
           },
           {
-            name: 'B',
-            value: 40
+            name: '2번',
+            value: 30
           },
           {
-            name: 'C',
-            value: 100
+            name: '3번',
+            value: 10
+          },
+          {
+            name: '4번',
+            value: 35
           }
         ];
       }

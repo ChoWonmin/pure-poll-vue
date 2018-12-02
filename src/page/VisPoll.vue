@@ -1,9 +1,19 @@
 <template lang="jade">
   .container
+    .item-wrapper
+      .item
+        .question-wrapper.flex-wrapper
+          .question {{1}}. {{currentItem.question}}
+        .choices(v-for="choice, j in currentItem.choices")
+          .line.flex-wrapper
+            input(type='radio').radio-input
+            .num {{j+1}}.
+            .choice {{choice.value}}
     .bar-wapper
-      ParallelCoordinate(:width="900", :height="500", :items="parallelData", :axis="axis", :group="group")
+      PieChart(:radius="50", :donut-width="10", :pie-width="30")
+      BarChart()
     .bar-wapper
-    //  PieChart(:radius="50", :donut-width="10", :pie-width="30")
+      ParallelCoordinate(:width="900", :height="500", :items="parallelData", :axis="axis", :group="colorGroup")
 </template>
 
 <script>
@@ -21,7 +31,7 @@ export default {
   },
   data() {
     return {
-      poll: undefined,
+      poll: this.$route.params.poll,
       resList: [],
       barData: [
         {
@@ -60,16 +70,20 @@ export default {
     };
   },
   async mounted() {
-    this.poll = this.$route.params.poll;
     this.resList = (await dataModule.get(`resList/${this.poll.id}`)).val();
-    //this.resList = (await dataModule.get('resList/-LS4HX3UDSdh3jKbdPfU')).val();
   },
   computed: {
     parallelData() {
+      return _.map(this.resList, e => e.poll);
+    },
+    pieData() {
       const tmp = [];
-
-      _.forEach(this.resList, (e) => {
-        tmp.push(e.poll);
+      const group = _.groupBy(this.resList, 'resLocation');
+      _.forEach(group, (e, key) => {
+        const obj = {};
+        obj.name = key;
+        obj.value = e.length;
+        tmp.push(obj);
       });
       return tmp;
     },
@@ -94,17 +108,23 @@ export default {
 
       return tmp;
     },
-    group() {
+    colorGroup() {
       const tmp = [];
-      _.forEach(this.resList, e => {
-        if (e.gender === '경상남도')
-          tmp.push('1');
-        else if (e.gender === '전라남도')
-          tmp.push('2');
-        else if (e.resLocation === '전라북도')
-          tmp.push('3');
-      })
+      let groups = Object.keys(_.groupBy(this.resList, 'resLocation'));
+      const colorMap = {};
+      groups = _.forEach(groups, (e, i) => {
+        colorMap[e] = i;
+      });
+
+      _.forEach(this.resList, (e) => {
+        const color = colorMap[e.resLocation];
+        tmp.push(color);
+      });
+
       return tmp;
+    },
+    currentItem() {
+      return this.poll.items[1];
     }
   },
   methods: {}
@@ -112,5 +132,26 @@ export default {
 </script>
 
 <style scoped lang="sass">
+@import "../style/variable"
+@import "../style/global"
+@import "../style/grid"
+.container
+  background-color: #fff
+  .item-wrapper
+    .item
+      .question-wrapper
+        height: 54px
+        padding: 6px 32px
+        font-size: 24px
+        line-height: 44px
+        .question
+          height: 44px
+          @include bottom-shadow(.5)
+      .choices
+        padding: 6px 24px
+        .line
+          padding: 12px
 
+  .bar-wapper
+    display: flex
 </style>

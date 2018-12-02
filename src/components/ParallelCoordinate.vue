@@ -12,7 +12,6 @@
       g#foreground
         template(v-for="(path, i) in paths")
           path(v-bind:d="path.d" fill="none" stroke-width="2" opacity="1" v-bind:stroke="colors[group[i]]" v-on:mouseover="pathHover" v-on:mouseleave="pathLeave")
-
 </template>
 
 <script>

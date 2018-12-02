@@ -1,5 +1,6 @@
 <template lang="jade">
   .container
+    v-dialog
     .load(v-show="!isLoad")
       Spinner()
     .poll(v-show="isLoad")
@@ -24,15 +25,20 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import VModal from 'vue-js-modal';
 import { dataModule } from '../api/firebase.wrapper';
 import blockchain from '../api/blockchain';
 import Spinner from '../components/Spinner';
 import Button from '../components/Button';
 
+Vue.use(VModal, { dialog: true });
+
 export default {
   components: {
     Spinner,
-    Button
+    Button,
+    VModal
   },
   data() {
     return {
@@ -50,16 +56,22 @@ export default {
   methods: {
     submit() {
       for (let i=0; i<this.resPoll.length; i++) {
-        if (this.resPoll[i] === undefined)
+        if (this.resPoll[i] === undefined) {
+          this.$modal.show('dialog', {
+            title: 'Alert!',
+            text: '설문을 모두 입력해주세'
+          });
           return ;
+        }
       }
       blockchain.write(JSON.stringify(this.resPoll), '0x9a41aA815537d679B0E6c0c78146457d10d98960').then((response) => {
         this.$router.push('/');
       }).catch((err) => {
-
+        this.$modal.show('dialog', {
+          title: 'Alert!',
+          text: err.message
+        });
       });
-
-
     }
   }
 };

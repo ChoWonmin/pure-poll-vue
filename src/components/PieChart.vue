@@ -16,13 +16,8 @@ export default {
       type: Array,
       default() {
         return [
-          {value: 2, name: 'A'},
-          {value: 3, name: 'B'},
-          {value: 2, name: 'C'},
-          {value: 4, name: 'D'},
-          {value: 4, name: 'E'},
-          {value: 7, name: 'F'},
-          {value: 6, name: 'G'}
+          { value: 2, name: '여성' },
+          { value: 3, name: '남성' }
         ]
       }
     },
