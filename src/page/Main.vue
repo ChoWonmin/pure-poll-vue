@@ -48,12 +48,16 @@ export default {
     };
   },
   async mounted() {
-    // dataModule.genData('asf');
-    this.pollList = (await dataModule.get('pollList')).val();
-    for (const k in this.pollList) {
-      this.pollList[k].mainImage = await storageModule.dowonloadUrl(`pollList/${this.pollList[k].mainImage}`);
-    }
     this.isLoad = true;
+  },
+  computed: {
+    async pollList() {
+      const tmp = (await dataModule.get('pollList')).val();
+      for (const k in tmp) {
+        tmp[k].mainImage = await storageModule.dowonloadUrl(`pollList/${tmp[k].mainImage}`);
+      }
+      return tmp;
+    }
   },
   methods: {
     show(item) {

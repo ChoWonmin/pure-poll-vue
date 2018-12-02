@@ -97,10 +97,12 @@ export default {
     group() {
       const tmp = [];
       _.forEach(this.resList, e => {
-        if (e.gender === '남자')
+        if (e.gender === '경상남도')
           tmp.push('1');
-        else
+        else if (e.gender === '전라남도')
           tmp.push('2');
+        else if (e.resLocation === '전라북도')
+          tmp.push('3');
       })
       return tmp;
     }

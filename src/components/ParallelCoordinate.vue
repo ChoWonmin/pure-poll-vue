@@ -7,9 +7,11 @@
           line(v-bind:x1="padding + i*diff" v-bind:y1="height - padding" v-bind:x2="padding + i*diff" v-bind:y2="padding" stroke="#bbbbbb" stroke-width="2")
           text(v-bind:x="padding + i*diff" v-bind:y="height - padding + 8" fill="black" text-anchor="middle" alignment-baseline="hanging") {{col.name}}
       g#background
+        template(v-for="path in paths")
+          path(v-bind:d="path.d" fill="none" stroke-width="2" opacity="1" stroke="grey")
       g#foreground
         template(v-for="(path, i) in paths")
-          path(v-bind:d="path.d" fill="none" stroke="red" stroke-width="2" opacity="0.1")
+          path(v-bind:d="path.d" fill="none" stroke-width="2" opacity="1" v-bind:stroke="colors[group[i]]" v-on:mouseover="pathHover" v-on:mouseleave="pathLeave")
 
 </template>
 
@@ -42,6 +44,12 @@ export default {
     group: {
       type: Array,
       required: true
+    },
+    colors: {
+      type: Array,
+      default() {
+        return colors;
+      }
     }
   },
   data() {
@@ -72,6 +80,14 @@ export default {
         tmp.push(path);
       }
       return tmp;
+    }
+  },
+  methods: {
+    pathHover() {
+      console.log('hover');
+    },
+    pathLeave() {
+      console.log('leave');
     }
   }
 };

@@ -90,11 +90,14 @@ const blockchain = {
     web3.eth.defaultAccount = defaultAccount;
     const contract = web3.eth.contract(contractABI);
     const app = contract.at('0x859baf87cb0a89532f210866535d1205105fcdf0');
-    app.saveData.sendTransaction(value, function (e, r) {
-      if (e) {
-        throw e;
-      }
-      console.log(r);
+
+    return new Promise(function (resolve, reject) {
+      app.saveData.sendTransaction(value, function (e, r) {
+        if (e) {
+          reject(e);
+        }
+        resolve(r);
+      });
     });
   }
 };
