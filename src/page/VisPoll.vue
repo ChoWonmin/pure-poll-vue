@@ -61,8 +61,8 @@ export default {
   },
   async mounted() {
     this.poll = this.$route.params.poll;
-    // this.resList = (await dataModule.get(`resList/${this.poll.id}`)).val();
-    this.resList = (await dataModule.get('resList/-LS4HX3UDSdh3jKbdPfU')).val();
+    this.resList = (await dataModule.get(`resList/${this.poll.id}`)).val();
+    //this.resList = (await dataModule.get('resList/-LS4HX3UDSdh3jKbdPfU')).val();
   },
   computed: {
     parallelData() {

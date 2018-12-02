@@ -84,10 +84,8 @@ export default {
   },
   methods: {
     pathHover() {
-      console.log('hover');
     },
     pathLeave() {
-      console.log('leave');
     }
   }
 };

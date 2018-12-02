@@ -1,72 +1,62 @@
 <template lang="jade">
   .main
     .search-wrap
-      input(placeholder="다음으로 PurePoll 검색").search-input
-    .sort-bar
-      DropDown(:name="'여론조사'", :optionIcons="[{text:'기관명', icon:'keyboard'},{text:'여론조사', icon:'phone'}]")
-      DropDown(:name="'항목 별'",
-      :optionIcons="[{text:'정치', icon:'keyboard'},{text:'경제', icon:'phone'},{text:'외교', icon:'phone'}]")
-      DropDown(:name="'여론조사'",
-      :optionIcons="[{text:'기관명', icon:'keyboard'},{text:'여론조사', icon:'phone'}]")
+      input(placeholder="다음으로 PurePoll 검색" v-model="searchWord").search-input
     .container
       .items-wrapper.grid
         .load(v-show="!isLoad")
           Spinner()
-        router-link(tag="div", :to="{name: 'VisPoll', params:{poll: item}}").item-wrapper(v-for="item in pollList" v-show="isLoad").cell-2
+        router-link(tag="div", :to="{name: 'VisPoll', params:{poll: item}}").item-wrapper(v-for="item in searchList" v-show="isLoad").cell-2
           .item
             .image-wrap
               img(v-bind:src="item.mainImage").mainImage
             .content-wrap
               .name {{item.name}}
-              .org-name 한국 갤럽
+              .org-name {{item.meta.orgName}}
               .line
-              .category 경제
+              .category {{item.meta.category}}
               .info-wrapper
-                i.material-icons.icon poll
-                .text.response 138
-                i.material-icons.icon remove_red_eye
-                .text.view 558
-                .empty
-                i.material-icons.icon start
+                // i.material-icons.icon poll
+                // .text.response 138
+                // i.material-icons.icon remove_red_eye
+                // .text.view 558
+                // .empty
+                // i.material-icons.icon start
 </template>
 
 <script>
 import { dataModule, storageModule } from '../api/firebase.wrapper';
-import DropDown from '../components/DropDown';
 import Spinner from '../components/Spinner';
 
 export default {
   components: {
-    DropDown,
     Spinner
   },
   data() {
     return {
       pollList: undefined,
       isLoad: false,
-      modalItem: {}
+      searchWord: ''
     };
   },
   async mounted() {
+    this.pollList = (await dataModule.get('pollList')).val();
+    for (const k in this.pollList) {
+      this.pollList[k].mainImage = await storageModule.dowonloadUrl(`pollList/${this.pollList[k].mainImage}`);
+    }
     this.isLoad = true;
   },
   computed: {
-    async pollList() {
-      const tmp = (await dataModule.get('pollList')).val();
-      for (const k in tmp) {
-        tmp[k].mainImage = await storageModule.dowonloadUrl(`pollList/${tmp[k].mainImage}`);
-      }
+    searchList() {
+      const tmp = {};
+      _.forEach(this.pollList, (e) => {
+        if (e.name.search(this.searchWord) > -1)
+          tmp[e.id] = e;
+      });
       return tmp;
     }
   },
   methods: {
-    show(item) {
-      this.modalItem = item;
-      this.$modal.show('poll-info-modal');
-    },
-    hide() {
-      this.$modal.hide('poll-info-modal');
-    },
     getImage: async url => await storageModule.dowonloadUrl(`pollList/${url}.jpeg`)
   }
 };
