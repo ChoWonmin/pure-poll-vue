@@ -22,7 +22,7 @@
                 DropDown(:name="'희망 조사 분야'",
                 :optionIcons="[{text:'경제', icon:'keyboard'},{text:'사회', icon:'phone'},{text:'문화', icon:'phone'},{text:'외교', icon:'phone'},{text:'안보', icon:'phone'},{text:'종합', icon:'phone'}]" ref="category")
         .notice-wrapper
-          .notice 2018년 12월 7일부터 2018년 12월 12일까지 17시부터 진행되는 여론조사입니다.
+          .notice
       .footer
         .error-message {{error}}
         .next-btn-wrapper

@@ -61,7 +61,7 @@ export default {
             title: 'Alert!',
             text: '설문을 모두 입력해주세'
           });
-          return ;
+          return;
         }
       }
       blockchain.write(JSON.stringify(this.resPoll), '0x9a41aA815537d679B0E6c0c78146457d10d98960').then((response) => {
